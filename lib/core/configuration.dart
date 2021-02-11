@@ -19,7 +19,7 @@ mixin _Configuration  {
   //final String _liveBookJSON = 'nosj.koob/retsam/elbib/ohtgnaisial/moc.tnetnocresubuhtig.war//:sptth';
   final String _liveBookJSON = 'nosj.koob/niam/elbib-nosj/argosoma/moc.tnetnocresubuhtig.war//:sptth';
   //https://raw.githubusercontent.com/amosogra/json-bible/main/book.json
-  
+
   final keyBookmarkList = GlobalKey<SliverAnimatedListState>();
 
   Collection collection;
