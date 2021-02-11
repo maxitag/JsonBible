@@ -15,7 +15,8 @@ class Scripture{
     this.notReady();
   }
 
-  String get url => 'nosj.*/nosj/retsam/elbib/ohtgnaisial/moc.tnetnocresubuhtig.war//:sptth'.split('').reversed.join().replaceAll('*', identify);
+  //String get url => 'nosj.*/nosj/retsam/elbib/ohtgnaisial/moc.tnetnocresubuhtig.war//:sptth'.split('').reversed.join().replaceAll('*', identify);
+  String get url => 'nosj.*/nosj/niam/elbib-nosj/argosoma/moc.tnetnocresubuhtig.war//:sptth'.split('').reversed.join().replaceAll('*', identify);
   String get fileName => basename(this.url);
 
   bool notReady() {

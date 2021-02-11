@@ -4,50 +4,6 @@
   "version": 254,
   "book": [
     {
-      "identify": "niv2011",
-      "name": "New International Version",
-      "shortname": "NIV",
-      "year": "2011",
-      "language": {
-        "text": "English",
-        "textdirection": "ltr",
-        "name": "en"
-      },
-      "version": "1"
-    },
-    {
-      "identify": "bbe1949",
-      "name": "Bible in Basic English",
-      "shortname": "BBE",
-      "year": "1949",
-      "language": {
-        "text": "English",
-        "textdirection": "ltr",
-        "name": "en"
-      },
-      "version": "1",
-      "description": "The form in which the Bible is given here is not simply another example of the Bible story put into present-day English. The language used is Basic English.\nBasic English, produced by Mr C. K. Ogden of the Orthological Institute, is a simple form of the English language which, with 850 words, is able to give the sense of anything which may be said in English.",
-      "publisher": "FREE BIBLE SOFTWARE GROUP",
-      "contributors": "C.K. Ogden",
-      "copyright": "We believe that this Bible is found in the Public Domain."
-    },
-    {
-      "identify": "web2000",
-      "name": "World English Bible",
-      "shortname": "WEB",
-      "year": "2000",
-      "language": {
-        "text": "English",
-        "textdirection": "ltr",
-        "name": "en"
-      },
-      "version": "1",
-      "description": "The WEB Bible as it might apear by the name is being translated specifically for the purpose of being distrubuted over the WEB.",
-      "publisher": "FREE BIBLE SOFTWARE GROUP",
-      "contributors": "Rainbow Missions PO BOX 1151 LONGMONT CO 80502-1151 USA",
-      "copyright": "We believe that this Bible is found in the Public Domain."
-    },
-    {
       "identify": "kjv1611",
       "name": "King James Version",
       "shortname": "KJV",
@@ -66,22 +22,7 @@
   ],
   "collection": {
     "xml": [
-      "kjv1611",
-      "bbe1949",
-      "ddb1931",
-      "dnb1930",
-      "falam1973",
-      "hakha1920",
-      "judson1835",
-      "luther1912",
-      "mcl2005",
-      "mizo1917",
-      "niv2011",
-      "ostervald1877",
-      "paite1971",
-      "sizang1932",
-      "tedim1932",
-      "web2000"
+      "kjv1611"
     ],
     "json": [
       "mara2011",
@@ -110,36 +51,6 @@
     "en": {
       "text": "English",
       "local": "English",
-      "textdirection": "ltr"
-    },
-    "my": {
-      "text": "Myanmar",
-      "local": "Burmese",
-      "textdirection": "ltr"
-    },
-    "no": {
-      "text": "Norwegian",
-      "local": "Norsk",
-      "textdirection": "ltr"
-    },
-    "da": {
-      "text": "Danish",
-      "local": "Dansk",
-      "textdirection": "ltr"
-    },
-    "sv": {
-      "text": "Swedish",
-      "local": "Svensk",
-      "textdirection": "ltr"
-    },
-    "fi": {
-      "text": "Finish",
-      "local": "Suomi",
-      "textdirection": "ltr"
-    },
-    "zo": {
-      "text": "Zolai",
-      "local": "Zolai",
       "textdirection": "ltr"
     }
   }

@@ -13,9 +13,13 @@ mixin _Configuration  {
   final String assetsFolder = 'assets';
   final String assetsCollection = 'book.json';
   // final String assetsCollection = 'collection.json';
-  final String _liveBookJSON = 'nosj.koob/retsam/elbib/ohtgnaisial/moc.tnetnocresubuhtig.war//:sptth';
-  //https://raw.githubusercontent.com/laisiangtho/bible/master/book.json
 
+
+  //https://raw.githubusercontent.com/laisiangtho/bible/master/book.json
+  //final String _liveBookJSON = 'nosj.koob/retsam/elbib/ohtgnaisial/moc.tnetnocresubuhtig.war//:sptth';
+  final String _liveBookJSON = 'nosj.koob/niam/elbib-nosj/argosoma/moc.tnetnocresubuhtig.war//:sptth';
+  //https://raw.githubusercontent.com/amosogra/json-bible/main/book.json
+  
   final keyBookmarkList = GlobalKey<SliverAnimatedListState>();
 
   Collection collection;
