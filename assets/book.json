@@ -1,0 +1,146 @@
+{
+  "name": "Lai Siangtho",
+  "updated": "2020-07-24T11:36:18.429Z",
+  "version": 254,
+  "book": [
+    {
+      "identify": "niv2011",
+      "name": "New International Version",
+      "shortname": "NIV",
+      "year": "2011",
+      "language": {
+        "text": "English",
+        "textdirection": "ltr",
+        "name": "en"
+      },
+      "version": "1"
+    },
+    {
+      "identify": "bbe1949",
+      "name": "Bible in Basic English",
+      "shortname": "BBE",
+      "year": "1949",
+      "language": {
+        "text": "English",
+        "textdirection": "ltr",
+        "name": "en"
+      },
+      "version": "1",
+      "description": "The form in which the Bible is given here is not simply another example of the Bible story put into present-day English. The language used is Basic English.\nBasic English, produced by Mr C. K. Ogden of the Orthological Institute, is a simple form of the English language which, with 850 words, is able to give the sense of anything which may be said in English.",
+      "publisher": "FREE BIBLE SOFTWARE GROUP",
+      "contributors": "C.K. Ogden",
+      "copyright": "We believe that this Bible is found in the Public Domain."
+    },
+    {
+      "identify": "web2000",
+      "name": "World English Bible",
+      "shortname": "WEB",
+      "year": "2000",
+      "language": {
+        "text": "English",
+        "textdirection": "ltr",
+        "name": "en"
+      },
+      "version": "1",
+      "description": "The WEB Bible as it might apear by the name is being translated specifically for the purpose of being distrubuted over the WEB.",
+      "publisher": "FREE BIBLE SOFTWARE GROUP",
+      "contributors": "Rainbow Missions PO BOX 1151 LONGMONT CO 80502-1151 USA",
+      "copyright": "We believe that this Bible is found in the Public Domain."
+    },
+    {
+      "identify": "kjv1611",
+      "name": "King James Version",
+      "shortname": "KJV",
+      "year": "1611",
+      "language": {
+        "text": "English",
+        "textdirection": "ltr",
+        "name": "en"
+      },
+      "version": 1,
+      "description": "In 1604, King James I of England authorized that a new translation of the Bible into English be started. It was finished in 1611, just 85 years after the first translation of the New Testament into English appeared (Tyndale, 1526). The Authorized Version, or King James Version, quickly became the standard for English-speaking Protestants. Its flowing language and prose rhythm has had a profound influence on the literature of the past 300 years.",
+      "publisher": "Crown Copyright in UK",
+      "contributors": "",
+      "copyright": "Crown Copyright in UK"
+    }
+  ],
+  "collection": {
+    "xml": [
+      "kjv1611",
+      "bbe1949",
+      "ddb1931",
+      "dnb1930",
+      "falam1973",
+      "hakha1920",
+      "judson1835",
+      "luther1912",
+      "mcl2005",
+      "mizo1917",
+      "niv2011",
+      "ostervald1877",
+      "paite1971",
+      "sizang1932",
+      "tedim1932",
+      "web2000"
+    ],
+    "json": [
+      "mara2011",
+      "jclb2009",
+      "matu2009"
+    ],
+    "sqlite": [],
+    "ph4": [],
+    "koh": [
+      "mara2011",
+      "jclb2009",
+      "matu2009"
+    ],
+    "wbc": [
+      "1048",
+      "348",
+      "1065",
+      "1879",
+      "1"
+    ],
+    "jwb": [
+      "jwmynwt"
+    ]
+  },
+  "language": {
+    "en": {
+      "text": "English",
+      "local": "English",
+      "textdirection": "ltr"
+    },
+    "my": {
+      "text": "Myanmar",
+      "local": "Burmese",
+      "textdirection": "ltr"
+    },
+    "no": {
+      "text": "Norwegian",
+      "local": "Norsk",
+      "textdirection": "ltr"
+    },
+    "da": {
+      "text": "Danish",
+      "local": "Dansk",
+      "textdirection": "ltr"
+    },
+    "sv": {
+      "text": "Swedish",
+      "local": "Svensk",
+      "textdirection": "ltr"
+    },
+    "fi": {
+      "text": "Finish",
+      "local": "Suomi",
+      "textdirection": "ltr"
+    },
+    "zo": {
+      "text": "Zolai",
+      "local": "Zolai",
+      "textdirection": "ltr"
+    }
+  }
+}
