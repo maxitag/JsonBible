@@ -6,7 +6,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-
 class MainView extends StatefulWidget {
   @override
   _SliverAnimatedListSampleState createState() => _SliverAnimatedListSampleState();
@@ -50,8 +49,7 @@ class _SliverAnimatedListSampleState extends State<MainView> {
   // concerned). The widget will be used by the
   // [AnimatedListState.removeItem] method's
   // [AnimatedListRemovedItemBuilder] parameter.
-  Widget _buildRemovedItem(
-      int item, BuildContext context, Animation<double> animation) {
+  Widget _buildRemovedItem(int item, BuildContext context, Animation<double> animation) {
     return CardItem(
       animation: animation,
       item: item,
@@ -61,8 +59,7 @@ class _SliverAnimatedListSampleState extends State<MainView> {
 
   // Insert the "next item" into the list model.
   void _insert() {
-    final int index =
-        _selectedItem == null ? _list.length : _list.indexOf(_selectedItem);
+    final int index = _selectedItem == null ? _list.length : _list.indexOf(_selectedItem);
     _list.insert(index, _nextItem++);
   }
 
@@ -139,9 +136,7 @@ class ListModel<E> {
     required this.listKey,
     required this.removedItemBuilder,
     Iterable<E>? initialItems,
-  })  : assert(listKey != null),
-        assert(removedItemBuilder != null),
-        _items = List<E>.from(initialItems ?? <E>[]);
+  }) : _items = List<E>.from(initialItems ?? <E>[]);
 
   final GlobalKey<SliverAnimatedListState> listKey;
   final dynamic removedItemBuilder;
@@ -159,8 +154,7 @@ class ListModel<E> {
     if (removedItem != null) {
       _animatedList!.removeItem(
         index,
-        (BuildContext context, Animation<double> animation) =>
-            removedItemBuilder(removedItem, context, animation),
+        (BuildContext context, Animation<double> animation) => removedItemBuilder(removedItem, context, animation),
       );
     }
     return removedItem;
@@ -186,10 +180,7 @@ class CardItem extends StatelessWidget {
     required this.item,
     this.onTap,
     this.selected = false,
-  })  : assert(animation != null),
-        assert(item != null && item >= 0),
-        assert(selected != null),
-        super(key: key);
+  }) : super(key: key);
 
   final Animation<double> animation;
   final VoidCallback? onTap;
@@ -213,9 +204,7 @@ class CardItem extends StatelessWidget {
           child: SizedBox(
             height: 80.0,
             child: Card(
-              color: selected
-                  ? Colors.black12
-                  : Colors.primaries[item! % Colors.primaries.length],
+              color: selected ? Colors.black12 : Colors.primaries[item! % Colors.primaries.length],
               child: Center(
                 child: Text(
                   'Item $item',

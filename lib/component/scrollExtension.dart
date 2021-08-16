@@ -5,9 +5,7 @@ developer: Khen Solomon Lethil
 part of 'available.dart';
 
 abstract class ScrollPageController {
-
-  ScrollPageController(this.controller)
-  : assert(controller != null) {
+  ScrollPageController(this.controller) {
     // controller.addListener(_listener);
     controller.scrollNotification(_scrollNotification);
   }
@@ -21,7 +19,7 @@ abstract class ScrollPageController {
   final heightNotify = ValueNotifier<double>(1.0);
   final direction = ValueNotifier<int>(0);
   final enableNotify = ValueNotifier<bool>(true);
-  void enable (bool s) => enableNotify.value = s;
+  void enable(bool s) => enableNotify.value = s;
 
   double get percentage => (_delta / height).toDouble();
   double get percentageShrink => (1.0 - percentage).toDouble();
@@ -41,7 +39,6 @@ abstract class ScrollPageController {
       // direction.value = notification.direction.index;
       direction.value = notification.direction.index;
       if (notification.direction == ScrollDirection.idle) {
-
         // _scrollEnd(notification.metrics);
         // if ([0.0, 1.0].contains(percentageShrink)) {
         //   return;
@@ -71,11 +68,11 @@ abstract class ScrollPageController {
     // if ([0.0, 1.0].contains(heightNotify.value)) return;
     if ((_delta == 0.0 && heightNotify.value == 0.0) || (_delta == height && heightNotify.value == 1.0)) return;
     double maxExtent = scroll.maxScrollExtent, limit = maxExtent - height;
-    if (pixels >= limit ){
-      if (_delta > 0.0 ) {
+    if (pixels >= limit) {
+      if (_delta > 0.0) {
         _offsetOld = pixels;
         final num _deltaBottom = scroll.extentAfter.clamp(0.0, height);
-        _delta = min(_delta,_deltaBottom as double);
+        _delta = min(_delta, _deltaBottom as double);
       }
     } else {
       _delta = (_delta + pixels - _offsetOld).clamp(0.0, height);
@@ -167,7 +164,7 @@ abstract class ScrollPageController {
 
     if ([0.0, 1.0].contains(percentageShrink)) return;
 
-    _delta = percentageShrink.round() == 1? 0.0:height;
+    _delta = percentageShrink.round() == 1 ? 0.0 : height;
     heightNotify.value = percentageShrink;
   }
 
@@ -209,9 +206,7 @@ extension ScrollControllerExtension on ScrollController? {
 }
 
 class _ScrollBottomControllerExtends extends ScrollPageController {
-  _ScrollBottomControllerExtends(ScrollController scrollController)
-      : assert(scrollController != null),
-        super(scrollController);
+  _ScrollBottomControllerExtends(ScrollController scrollController) : super(scrollController);
 
   @override
   double height = kBottomNavigationBarHeight;

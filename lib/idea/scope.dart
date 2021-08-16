@@ -22,8 +22,7 @@ class ApplyModelBinding extends StatefulWidget {
     Key? key,
     this.initialModel = const ApplyThemeOption(),
     this.child,
-  })  : assert(initialModel != null),
-        super(key: key);
+  }) : super(key: key);
 
   final ApplyThemeOption initialModel;
   final Widget? child;
@@ -89,8 +88,7 @@ class _ModelBindingScope extends InheritedWidget {
     Key? key,
     required this.modelBindingState,
     required Widget child,
-  })  : assert(modelBindingState != null),
-        super(key: key, child: child);
+  }) : super(key: key, child: child);
 
   final _ModelBindingState modelBindingState;
 

@@ -18,7 +18,7 @@ mixin _Result on _State {
         }
 
         if (snapshot.hasData) {
-          if (snapshot.data! && bible!.verseCount! > 0) {
+          if (snapshot.data! && bible!.verseCount > 0) {
             core.addKeyword(this.searchQuery.trim());
             return new SliverPadding(
               padding: EdgeInsets.symmetric(vertical:10),

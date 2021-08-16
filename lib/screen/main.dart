@@ -115,13 +115,13 @@ class _MainState extends State<MainView> with TickerProviderStateMixin {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             return SplashScreen(message:'A moment');
-            break;
+
           case ConnectionState.active:
             return SplashScreen(message:'...wait');
-            break;
+
           case ConnectionState.none:
             return SplashScreen(message:'getting ready...');
-            break;
+
           // case ConnectionState.done:
           //   return _start();
           //   break;

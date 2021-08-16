@@ -8,21 +8,18 @@ class ScrollPage extends StatelessWidget {
   ScrollPage({
     Key? key,
     this.controller,
-    this.depth:0,
+    this.depth: 0,
     required this.child,
-  }) :
-  assert(child != null),
-  super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ScrollConfiguration(
-      behavior: ScrollPageBehavior(),
-      child: NotificationListener<ScrollNotification>(
-        onNotification: _notification,
-        child: child,
-      )
-   );
+        behavior: ScrollPageBehavior(),
+        child: NotificationListener<ScrollNotification>(
+          onNotification: _notification,
+          child: child,
+        ));
   }
 
   bool _notification(ScrollNotification notification) {
@@ -40,28 +37,23 @@ class ScrollPageBehavior extends ScrollBehavior {
 
 class ScrollMainDecoratedBox extends StatelessWidget {
   final Widget? child;
-  ScrollMainDecoratedBox({Key? key,this.child}):super(key: key);
+  ScrollMainDecoratedBox({Key? key, this.child}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        borderRadius: new BorderRadius.vertical(
-          top: Radius.elliptical(3, 2),
-          bottom: Radius.elliptical(3, 2)
-        ),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 1,
-            // color: Colors.grey[300],
-            // color: Theme.of(context).primaryColor,
-            color: Theme.of(context).backgroundColor,
-            spreadRadius: 0.3,
-            offset: Offset(0.0, .0),
-          )
-        ]
-      ),
-      child: this.child
-    );
+        decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: new BorderRadius.vertical(top: Radius.elliptical(3, 2), bottom: Radius.elliptical(3, 2)),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 1,
+                // color: Colors.grey[300],
+                // color: Theme.of(context).primaryColor,
+                color: Theme.of(context).backgroundColor,
+                spreadRadius: 0.3,
+                offset: Offset(0.0, .0),
+              )
+            ]),
+        child: this.child);
   }
 }

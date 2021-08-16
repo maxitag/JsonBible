@@ -49,12 +49,12 @@ class Core extends _Collection with _Bible, _Bookmark, _Speech, _Mock {
 
     await readCollection();
     switchIdentifyPrimary();
-    await getBiblePrimary.catchError((e){
+    await getBiblePrimary.catchError((e) {
       print('error Primary $e');
     });
 
     switchIdentifyParallel();
-    await getBibleParallel.catchError((e){
+    await getBibleParallel.catchError((e) {
       print('error Parallel $e');
     });
 
@@ -69,17 +69,16 @@ class Core extends _Collection with _Bible, _Bookmark, _Speech, _Mock {
   }
 
   // NOTE: used on read: when [bible] is switch
-  Future<void> analyticsBible() async{
+  Future<void> analyticsBible() async {
     CollectionBible e = collectionPrimary;
     // print('analyticsBible ${e.name} ${e.shortname} book:$bookName');
-    if (e != null) this.analyticsContent('${e.name} (${e.shortname})', this.bookName);
+    this.analyticsContent('${e.name} (${e.shortname})', this.bookName);
   }
 
   // NOTE: used on read: when [book,chapter] are change
   Future<void> analyticsReading() async {
     CollectionBible e = collectionPrimary;
     // print('analyticsReading ${e.name} ${e.shortname} book:$bookName chapter: $chapterName');
-    if (e != null) this.analyticsBook('${e.name} (${e.shortname})', this.bookName, this.chapterName);
+    this.analyticsBook('${e.name} (${e.shortname})', this.bookName, this.chapterName);
   }
-
 }

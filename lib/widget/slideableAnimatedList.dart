@@ -127,7 +127,7 @@ class _SlideableAnimatedListState extends State<SlideableAnimatedList> with Sing
                                     opacity: animationDouble, child: item
                                   )
                                 );
-                              })?.toList()??[]
+                              }).toList()??[]
                             )
                           )
                         ]

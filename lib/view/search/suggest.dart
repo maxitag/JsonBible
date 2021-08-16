@@ -16,7 +16,7 @@ mixin _Suggest on _State {
           if (snapshot.data!) {
             return _suggestionBook();
           } else if (this.searchQuery.isNotEmpty) {
-            return WidgetContent(atLeast: 'found no contain\nof ',enable:this.searchQuery,task: '\nin ',message:bibleInfo?.name);
+            return WidgetContent(atLeast: 'found no contain\nof ',enable:this.searchQuery,task: '\nin ',message:bibleInfo.name);
           } else {
             return _suggestionKeyword();
           }

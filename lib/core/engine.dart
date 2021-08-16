@@ -26,7 +26,7 @@ Future<String> requestHTTP(String url) async {
     if (response.statusCode == 200){
       return response.body;
     } else {
-      return Future.error("Failed to load, code: ${response?.statusCode}");
+      return Future.error("Failed to load, code: ${response.statusCode}");
     }
   } catch (e) {
     // print(e.message);

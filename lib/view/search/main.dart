@@ -43,7 +43,7 @@ abstract class _State extends State<Main> with TickerProviderStateMixin {
     query: core.searchQuery
   );
   BIBLE? get bible => core.scripturePrimary!.verseSearchData;
-  bool get shrinkResult => bible!.verseCount! > 300;
+  bool get shrinkResult => bible!.verseCount > 300;
 
   CollectionBible get bibleInfo => core.collectionPrimary;
   List<CollectionKeyword>? get keywords => core.collection!.keyword;
@@ -61,7 +61,7 @@ abstract class _State extends State<Main> with TickerProviderStateMixin {
     controller.master.bottom!.pageChange(1);
   }
 
-  String get searchQuery => this.textController.text??'';
+  String get searchQuery => this.textController.text;
   // void showKeyboard() => FocusScope.of(context).requestFocus(focusNode);
   void showKeyboard() => focusNode.requestFocus();
   // FocusScope.of(context).unfocus()
