@@ -14,12 +14,12 @@ Navigator.of(context).push(PageRouteBuilder(
 */
 
 class WidgetPopup extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
 
   final double top;
-  final double right;
-  final double left;
-  final double bottom;
+  final double? right;
+  final double? left;
+  final double? bottom;
   final double offsetPersentage;
 
   final double padding;
@@ -30,7 +30,7 @@ class WidgetPopup extends StatelessWidget {
 
   WidgetPopup(
     {
-      Key key,
+      Key? key,
       this.child,
       this.offsetPersentage:1.0,
       this.top:75,
@@ -162,8 +162,8 @@ class ClipperArrow extends CustomClipper<Path> {
 
 class ShapedArrow extends RoundedRectangleBorder {
   ShapedArrow({
-    @required this.padding,
-    @required this.arrow,
+    required this.padding,
+    required this.arrow,
     side = BorderSide.none,
     borderRadius = BorderRadius.zero,
   }) : super(side: side, borderRadius: borderRadius);
@@ -171,7 +171,7 @@ class ShapedArrow extends RoundedRectangleBorder {
   final double arrow;
 
   @override
-  Path getOuterPath(Rect rect, {TextDirection textDirection}) {
+  Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
     return Path()
       ..moveTo(arrow , rect.top)
       ..lineTo(arrow + 8, rect.top - 4.0)

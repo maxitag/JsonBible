@@ -5,6 +5,6 @@ class BottomBarItemTmp {
     this.label,
     this.icon
   });
-  final String label;
-  final IconData icon;
+  final String? label;
+  final IconData? icon;
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 
 class WidgetSheet extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
   WidgetSheet({this.child});
 
   @override

@@ -4,7 +4,7 @@ final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 class SplashPage extends StatelessWidget {
   const SplashPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
 

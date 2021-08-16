@@ -39,14 +39,14 @@ class View extends _State {
   }
 
   Widget body(){
-    if (isNotReady || bookmarks.length == 0) {
+    if (isNotReady || bookmarks!.length == 0) {
       return new WidgetContent(atLeast:'collection of\n',enable:'Bookmark',task: ' &\nother ',message: 'library');
     }
     return new SliverPadding(
       padding: EdgeInsets.only(top:7.0,bottom: MediaQuery.of(context).padding.bottom+5.0),
       sliver: new SliverAnimatedList(
         key: core.keyBookmarkList,
-        initialItemCount: bookmarks.length,
+        initialItemCount: bookmarks!.length,
         itemBuilder: _listItem
       )
     );
@@ -54,7 +54,7 @@ class View extends _State {
 
   Widget _listItem(BuildContext _, int index, Animation<double> animation){
 
-    CollectionBookmark bookmark = bookmarks[index];
+    CollectionBookmark bookmark = bookmarks![index];
     Key id = ValueKey<String>('${bookmark.bookId}-${bookmark.chapterId}');
     Widget menu = bookmarksItem(bookmark);
     return new SlideableAnimatedList(
@@ -73,7 +73,7 @@ class View extends _State {
           ),
           onPressed: () {
             // o.removeAt(index);
-            core.keyBookmarkList.currentState.removeItem(
+            core.keyBookmarkList.currentState!.removeItem(
               index,
               (_, animation) => new SlideableAnimatedList(
                 key: id,
@@ -91,8 +91,8 @@ class View extends _State {
   }
 
   Widget bookmarksItem(CollectionBookmark bookmark){
-    DefinitionBook book = core.getDefinitionBookById(bookmark.bookId);
-    DefinitionTestament testament = core.getDefinitionTestamentById(bookmark.bookId > 39?2:1);
+    DefinitionBook book = core.getDefinitionBookById(bookmark.bookId)!;
+    DefinitionTestament testament = core.getDefinitionTestamentById(bookmark.bookId! > 39?2:1)!;
     return Container(
       margin: EdgeInsets.symmetric(horizontal:5,vertical:2),
       decoration: BoxDecoration(
@@ -115,22 +115,22 @@ class View extends _State {
           dense: true,
           title: Text(
             // '${bookmark.bookId} bookmark.info.name',
-            book.name,
+            book.name!,
             maxLines: 1, overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.headline2.copyWith(
+            style: Theme.of(context).textTheme.headline2!.copyWith(
               fontSize: 18,
               color: Colors.black,
               // height: 1.4
             )
           ),
-          subtitle: Text(testament.name,
-            style: Theme.of(context).textTheme.subtitle2.copyWith(
+          subtitle: Text(testament.name!,
+            style: Theme.of(context).textTheme.subtitle2!.copyWith(
               fontSize: 14,
               color: Colors.grey[500]
             )
           ),
           trailing: Text(core.digit(bookmark.chapterId),
-            style: Theme.of(context).textTheme.subtitle2.copyWith(
+            style: Theme.of(context).textTheme.subtitle2!.copyWith(
               fontSize: 18,
               color: Colors.grey[500]
               // height: 1.4
@@ -139,7 +139,7 @@ class View extends _State {
           onTap: (){
             core.bookId = bookmark.bookId;
             core.chapterId = bookmark.chapterId;
-            controller.master.bottom.pageChange(1);
+            controller.master.bottom!.pageChange(1);
           }
         ),
       ),

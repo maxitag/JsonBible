@@ -137,16 +137,16 @@ mixin _Bar on _State {
         // hintStyle: TextStyle(color: Colors.grey),
         contentPadding: EdgeInsets.symmetric(horizontal: 1,vertical: (3*shrink)),
         // fillColor: Color(0xffeff1f4).withOpacity(shrink),
-        fillColor: Colors.grey[focusNode.hasFocus?300:200].withOpacity(shrink),
+        fillColor: Colors.grey[focusNode.hasFocus?300:200]!.withOpacity(shrink),
         // fillColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(shrink),
         // fillColor: Theme.of(context).backgroundColor.withOpacity(shrink),
         filled: true,
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey[300].withOpacity(shrink), width: 0.1),
+          borderSide: BorderSide(color: Colors.grey[300]!.withOpacity(shrink), width: 0.1),
           borderRadius: BorderRadius.all(Radius.circular(100)),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey[200].withOpacity(shrink), width: 0.1),
+          borderSide: BorderSide(color: Colors.grey[200]!.withOpacity(shrink), width: 0.1),
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         // border: OutlineInputBorder(

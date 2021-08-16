@@ -1,16 +1,16 @@
 // part of 'collection.dart';
 
 class NAME {
-  final String identify;
-  final int testamentId;
-  final String testamentName;
-  final String testamentShortname;
+  final String? identify;
+  final int? testamentId;
+  final String? testamentName;
+  final String? testamentShortname;
 
-  final int bookId;
-  final String bookName;
-  final String bookShortname;
+  final int? bookId;
+  final String? bookName;
+  final String? bookShortname;
 
-  final int chapterCount;
+  final int? chapterCount;
 
   // NOTE: used in bookmark:view
   // int chapterId;

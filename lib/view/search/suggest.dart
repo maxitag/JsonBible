@@ -13,7 +13,7 @@ mixin _Suggest on _State {
           return WidgetMessage(message: snapshot.error.toString());
         }
         if (snapshot.hasData) {
-          if (snapshot.data) {
+          if (snapshot.data!) {
             return _suggestionBook();
           } else if (this.searchQuery.isNotEmpty) {
             return WidgetContent(atLeast: 'found no contain\nof ',enable:this.searchQuery,task: '\nin ',message:bibleInfo?.name);
@@ -31,7 +31,7 @@ mixin _Suggest on _State {
     return new SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int bookIndex) {
-          BOOK book = bible.book[bookIndex];
+          BOOK book = bible!.book![bookIndex];
           return new Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -39,13 +39,13 @@ mixin _Suggest on _State {
               // Text(book.info.name),
               Container(
                 margin: EdgeInsets.symmetric(vertical:10),
-                child: Text(book.info.name.toUpperCase()),
+                child: Text(book.info!.name!.toUpperCase()),
               ),
-              _suggestionChapter(book.chapter)
+              _suggestionChapter(book.chapter!)
             ]
           );
         },
-        childCount: bible.book.length
+        childCount: bible!.book!.length
       )
     );
   }
@@ -139,7 +139,7 @@ mixin _Suggest on _State {
             Padding(
               padding: EdgeInsets.symmetric(vertical:10),
               child: Text(
-                chapter.name,
+                chapter.name!,
                 style: TextStyle(
                   color:Colors.black54,
                   fontSize: 18
@@ -147,7 +147,7 @@ mixin _Suggest on _State {
               ),
             ),
 
-            _suggestionVerse(chapter.verse)
+            _suggestionVerse(chapter.verse!)
 
           ]
         );
@@ -182,8 +182,8 @@ mixin _Suggest on _State {
       padding: EdgeInsets.symmetric(vertical: 5),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
-          (context, index) => _suggestionKeywordBuilder(context, keywordSuggestion[index],index),
-          childCount: keywordSuggestion.length,
+          (context, index) => _suggestionKeywordBuilder(context, keywordSuggestion![index],index),
+          childCount: keywordSuggestion!.length,
           // addAutomaticKeepAlives: true
         ),
       ),
@@ -192,10 +192,10 @@ mixin _Suggest on _State {
   Widget _suggestionKeywordBuilder(BuildContext context, CollectionKeyword keyword, int index){
 
     return Dismissible(
-      key: Key(keyword.word),
+      key: Key(keyword.word!),
       onDismissed: (direction) {
         setState(() {
-          keywordSuggestion.removeAt(index);
+          keywordSuggestion!.removeAt(index);
         });
         Scaffold.of(context).showSnackBar(
           SnackBar(
@@ -208,7 +208,7 @@ mixin _Suggest on _State {
       background: Container(
         alignment: Alignment(0.9,0),
         // color: Colors.red,
-        child: Text('Remove',style: Theme.of(context).textTheme.headline5.copyWith(color: Colors.red,))
+        child: Text('Remove',style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.red,))
       ),
       direction: DismissDirection.endToStart,
       child: Container(
@@ -234,17 +234,17 @@ mixin _Suggest on _State {
           title: RichText(
             strutStyle: StrutStyle(),
             text: TextSpan(
-              text: keyword.word.substring(0, searchQuery.length),
+              text: keyword.word!.substring(0, searchQuery.length),
               style: TextStyle(color: Colors.red,height: 1.0,fontSize: 18),
               children: <TextSpan>[
                 TextSpan(
-                  text: keyword.word.substring(searchQuery.length),
+                  text: keyword.word!.substring(searchQuery.length),
                   style: TextStyle(color: Colors.black)
                 )
               ]
             )
           ),
-          onTap: () => this.inputSubmit(keyword.word)
+          onTap: () => this.inputSubmit(keyword.word!)
         ),
       )
     );

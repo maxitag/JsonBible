@@ -15,7 +15,7 @@ import 'package:bible/view/search/main.dart' as Search;
 import 'package:bible/screen/SplashScreen.dart';
 
 class MainView extends StatefulWidget {
-  MainView({Key key}) : super(key: key);
+  MainView({Key? key}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _MainState();
 }
@@ -42,7 +42,7 @@ class _MainState extends State<MainView> with TickerProviderStateMixin {
   List<Widget> pageView = [];
   List<ModelPage> pageButton = [];
 
-  Future<void> initiator;
+  Future<void>? initiator;
 
   @override
   void initState() {
@@ -65,13 +65,13 @@ class _MainState extends State<MainView> with TickerProviderStateMixin {
       ];
     }
 
-    _controller.master.bottom.pageListener((int index){
+    _controller.master.bottom!.pageListener((int index){
       // navigator.currentState.pushReplacementNamed(index.toString());
 
       ModelPage page = pageButton[index];
       // NOTE: check State isMounted
-      if(page.key.currentState != null){
-        page.key.currentState.setState(() {});
+      if(page.key!.currentState != null){
+        page.key!.currentState!.setState(() {});
       }
       pageController.jumpToPage(index);
 
@@ -100,7 +100,7 @@ class _MainState extends State<MainView> with TickerProviderStateMixin {
   }
 
   void _pageClick(int index){
-    _controller.master.bottom.pageChange(index);
+    _controller.master.bottom!.pageChange(index);
   }
 
   // void _pageChanged(int index){

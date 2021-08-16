@@ -70,7 +70,7 @@ mixin _Bar on _State {
         //   )
         // ),
         Align(
-          alignment: Alignment.lerp(Alignment(-0.5,0.5),Alignment(-0.7,-.1), stretch),
+          alignment: Alignment.lerp(Alignment(-0.5,0.5),Alignment(-0.7,-.1), stretch)!,
           // alignment: Alignment(-.9,0),
           child: _barTitle(shrink)
         ),

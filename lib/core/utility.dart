@@ -10,7 +10,7 @@ mixin _Utility {
   FirebaseAnalytics get analytics => _analytics;
   get observer => _observer;
 
-  Future<void> analyticsShare(String contentType, String itemId) async {
+  Future<void> analyticsShare(String contentType, String? itemId) async {
     await _analytics.logEvent(
       name: 'share',
       parameters: <String, dynamic>{
@@ -20,7 +20,7 @@ mixin _Utility {
     );
   }
 
-  Future<void> analyticsContent(String contentType, String itemId) async {
+  Future<void> analyticsContent(String contentType, String? itemId) async {
     // print('analyticsContent contentType:$contentType itemId: $itemId');
     await _analytics.logEvent(
       name: 'select_content',
@@ -31,7 +31,7 @@ mixin _Utility {
     );
   }
 
-  Future<void> analyticsBook(String bibleName, String bookName, String chapterId) async {
+  Future<void> analyticsBook(String bibleName, String? bookName, String chapterId) async {
     await _analytics.logEvent(
       name: 'select_book',
       parameters: <String, dynamic>{
@@ -43,7 +43,7 @@ mixin _Utility {
     );
   }
 
-  Future<void> analyticsScreen(String name, String classes) async {
+  Future<void> analyticsScreen(String? name, String classes) async {
     // await new FirebaseAnalytics().setCurrentScreen(creenName: 'home',screenClassOverride: 'HomeState');
     // print('analyticsScreen $name $classes');
     await _analytics.setCurrentScreen(screenName: name,screenClassOverride: classes);

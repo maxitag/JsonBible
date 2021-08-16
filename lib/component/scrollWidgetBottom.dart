@@ -9,22 +9,22 @@ class ModelPage {
     this.key,
     this.child,
   });
-  final String screenName;
-  final String description;
-  final GlobalKey<State<dynamic>> key;
-  final Widget child;
-  final String name;
-  final IconData icon;
+  final String? screenName;
+  final String? description;
+  final GlobalKey<State<dynamic>>? key;
+  final Widget? child;
+  final String? name;
+  final IconData? icon;
 }
 // core.analyticsScreen('home','HomeState');
 
 class ScrollPageBottom extends StatefulWidget {
 
-  final ScrollController controller;
-  final void Function(int) pageClick;
-  final List<ModelPage> items;
+  final ScrollController? controller;
+  final void Function(int)? pageClick;
+  final List<ModelPage>? items;
   final Duration duration;
-  final Widget child;
+  final Widget? child;
 
   ScrollPageBottom({
     this.controller,
@@ -48,13 +48,13 @@ class ScrollPageBottom extends StatefulWidget {
 }
 
 class _BottomBarAnimatedState extends State<ScrollPageBottom> with TickerProviderStateMixin {
-  ScrollController get controller => widget.controller;
+  ScrollController? get controller => widget.controller;
   Duration get animationDuration => widget.duration;
-  double get height => controller.bottom.height;
+  double get height => controller.bottom!.height;
   double heightCurrent(heightFactor) => (height*heightFactor).toDouble();
   // double heightCurrent(heightFactor) => (height*heightFactor).toDouble().clamp(5.0, height);
   int milliseconds(double heightFactor) => [0.0, 1.0].contains(heightFactor)?200:0;
-  List<ModelPage> get items => widget.items;
+  List<ModelPage>? get items => widget.items;
 
   // double itemWidthMax;
 
@@ -62,18 +62,18 @@ class _BottomBarAnimatedState extends State<ScrollPageBottom> with TickerProvide
   Widget build(BuildContext context) {
     // itemWidthMax = MediaQuery.of(context).size.width/items.length;
     return ValueListenableBuilder<bool>(
-      valueListenable: controller.master.bottom.toggleNotify,
+      valueListenable: controller.master.bottom!.toggleNotify,
       // builder: (BuildContext context, bool hide,Widget child) => (hide)?Container():_height()
       // builder: (BuildContext context, bool hide,Widget child) => (hide)?SizedBox.shrink():_height()
       // builder: (BuildContext context, bool hide,Widget child) => (hide)?Container(height: 0,color:Colors.brown):_height()
-      builder: (BuildContext context, bool hide,Widget child) => (hide)?Container(height: 0,color:Colors.brown):_height()
+      builder: (BuildContext context, bool hide,Widget? child) => (hide)?Container(height: 0,color:Colors.brown):_height()
     );
     // return _height();
   }
 
   Widget _height() {
     return ValueListenableBuilder<double>(
-      valueListenable: controller.master.bottom.heightNotify,
+      valueListenable: controller.master.bottom!.heightNotify,
       builder: _animatedContainer,
       child: _page(),
     );
@@ -81,21 +81,21 @@ class _BottomBarAnimatedState extends State<ScrollPageBottom> with TickerProvide
 
   ValueListenableBuilder<int> _page(){
     return ValueListenableBuilder<int>(
-      valueListenable: controller.master.bottom.pageNotify,
+      valueListenable: controller.master.bottom!.pageNotify,
       builder: _item,
     );
   }
 
-  Widget _item(BuildContext context, int value,Widget child){
+  Widget _item(BuildContext context, int value,Widget? child){
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: items.asMap().map((index, item) => MapEntry(index, _button(index,item,value == index))).values.toList()
+      children: items!.asMap().map((index, item) => MapEntry(index, _button(index,item,value == index))).values.toList()
     );
   }
 
-  Widget _animatedContainer(BuildContext context, double heightFactor,Widget children) {
+  Widget _animatedContainer(BuildContext context, double heightFactor,Widget? children) {
     // return Align(
     //   heightFactor: 1.0,
     //   child: Stack(
@@ -209,7 +209,7 @@ class _BottomBarAnimatedState extends State<ScrollPageBottom> with TickerProvide
   Widget _button(int index, ModelPage item, bool isButtomSelected) {
     // return Text('a');
     return Tooltip(
-      message: item.description,
+      message: item.description!,
       // child: CupertinoButton(
       //   child: Text('a'),
       //   onPressed: () => isButtomSelected?null: widget.pageClick(index)
@@ -235,7 +235,7 @@ class _BottomBarAnimatedState extends State<ScrollPageBottom> with TickerProvide
           )
         ),
         // onPressed: () => core.pageController.jumpToPage(index)
-        onPressed: isButtomSelected?null:()=>widget.pageClick(index)
+        onPressed: isButtomSelected?null:()=>widget.pageClick!(index)
         // onPressed: null,
       ),
     );

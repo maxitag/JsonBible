@@ -3,7 +3,7 @@
 
 part of 'scope.dart';
 
-typedef PathWidgetBuilder = Widget Function(BuildContext, String);
+typedef PathWidgetBuilder = Widget Function(BuildContext, String?);
 
 class Path {
   const Path(this.pattern, this.builder);
@@ -95,11 +95,11 @@ class RouteConfiguration {
   //     );
   // }
 
-  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+  static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     for (final path in paths) {
       final regExpPattern = RegExp(path.pattern);
-      if (regExpPattern.hasMatch(settings.name)) {
-        final firstMatch = regExpPattern.firstMatch(settings.name);
+      if (regExpPattern.hasMatch(settings.name!)) {
+        final firstMatch = regExpPattern.firstMatch(settings.name!)!;
         final match = (firstMatch.groupCount == 1) ? firstMatch.group(1) : null;
         return MaterialPageRoute<void>(
           builder: (context) => path.builder(context, match),

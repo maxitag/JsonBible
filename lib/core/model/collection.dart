@@ -5,18 +5,18 @@ part 'page.dart';
 
 // NOTE: BibleLanguage BibleBook, BibleDigit, BibleBookName, Bible BibleStory, BibleCommentary
 class Collection {
-  final int version;
-  final List<CollectionBible> bible;
-  final List<CollectionBookmark> bookmark;
-  final List<CollectionKeyword> keyword;
-  final CollectionSetting setting;
+  final int? version;
+  final List<CollectionBible>? bible;
+  final List<CollectionBookmark>? bookmark;
+  final List<CollectionKeyword>? keyword;
+  final CollectionSetting? setting;
 
   Collection({this.version,this.bible,this.bookmark, this.keyword,this.setting});
 
   factory Collection.fromJSON(Map<String, dynamic> o) {
     // NOTE: change of collection bible model
     return Collection(
-      version: o['version'] as int,
+      version: o['version'] as int?,
       // bible: o['bible'].map<CollectionBible>((json) => CollectionBible.fromJSON(json)).toList(),
       bible: (o['bible']??o['book']).map<CollectionBible>((json) => CollectionBible.fromJSON(json)).toList(),
       bookmark: o['bookmark'].map<CollectionBookmark>((json) => CollectionBookmark.fromJSON(json)).toList(),
@@ -29,25 +29,25 @@ class Collection {
     // List bible = _collectionBook.map((e)=>e.toJSON()).toList();
     return {
       'version':this.version,
-      'bible':this.bible.map((e)=>e.toJSON()).toList(),
-      'bookmark':this.bookmark.map((e)=>e.toJSON()).toList(),
-      'keyword':this.keyword.map((e)=>e.toJSON()).toList(),
-      'setting':this.setting.toJSON()
+      'bible':this.bible!.map((e)=>e.toJSON()).toList(),
+      'bookmark':this.bookmark!.map((e)=>e.toJSON()).toList(),
+      'keyword':this.keyword!.map((e)=>e.toJSON()).toList(),
+      'setting':this.setting!.toJSON()
     };
   }
 
 }
 
 class CollectionBookmark {
-  int bookId;
-  int chapterId;
+  int? bookId;
+  int? chapterId;
   CollectionBookmark({this.bookId, this.chapterId});
 
   factory CollectionBookmark.fromJSON(Map<String, dynamic> o) {
     // NOTE: book and chapter property from previous version
     return CollectionBookmark(
-      bookId: o['bookId']??o['book'] as int,
-      chapterId: o['chapterId']??o['chapter'] as int
+      bookId: o['bookId']??o['book'] as int?,
+      chapterId: o['chapterId']??o['chapter'] as int?
     );
   }
 
@@ -61,7 +61,7 @@ class CollectionBookmark {
 }
 
 class CollectionKeyword {
-  String word;
+  String? word;
   CollectionKeyword({this.word});
 
   factory CollectionKeyword.fromJSON(String word) {
@@ -70,26 +70,26 @@ class CollectionKeyword {
     );
   }
 
-  String toJSON() {
+  String? toJSON() {
     return this.word;
   }
 }
 
 // class CollectionBible<T> {
 class CollectionBible {
-  final String identify;
-  final String name;
-  final String shortname;
-  final int year;
-  final CollectionLanguage language;
-  final String description;
-  final int version;
-  int available;
-  int order;
+  final String? identify;
+  final String? name;
+  final String? shortname;
+  final int? year;
+  final CollectionLanguage? language;
+  final String? description;
+  final int? version;
+  int? available;
+  int? order;
   // NOTE: used in DefinitionBible
-  final String publisher;
-  final String contributors;
-  final String copyright;
+  final String? publisher;
+  final String? contributors;
+  final String? copyright;
 
   CollectionBible({
     this.identify,
@@ -108,7 +108,7 @@ class CollectionBible {
 
   factory CollectionBible.fromJSON(Map<String, dynamic> o) {
 
-    String stringProperty(String key){
+    String? stringProperty(String key){
       // NOTE: required for some of the previous version
       if (o.containsKey(key)){
         if (o[key] is String){
@@ -159,7 +159,7 @@ class CollectionBible {
       'name': this.name,
       'shortname': this.shortname,
       'year':this.year,
-      'language':this.language.toJSON(),
+      'language':this.language!.toJSON(),
       'description':this.description,
       'publisher':this.publisher,
       'contributors':this.contributors,
@@ -178,9 +178,9 @@ class CollectionBible {
 }
 
 class CollectionLanguage {
-  final String text;
-  final String textdirection;
-  final String name;
+  final String? text;
+  final String? textdirection;
+  final String? name;
   CollectionLanguage({this.text, this.textdirection, this.name});
 
   factory CollectionLanguage.fromJSON(Map<String, dynamic> o) {

@@ -2,7 +2,7 @@ part of 'main.dart';
 
 class _BottomSheet extends StatefulWidget {
   _BottomSheet({
-    Key key,
+    Key? key,
     this.nextChapter,
     this.previousChapter,
     this.verseSelectionList,
@@ -10,11 +10,11 @@ class _BottomSheet extends StatefulWidget {
     this.scrollToIndex,
   }) : super(key: key);
 
-  final void Function() nextChapter;
-  final void Function() previousChapter;
-  final void Function() verseSelectionCopy;
-  final Future<void> Function(int,{bool isId}) scrollToIndex;
-  final List<int> verseSelectionList;
+  final void Function()? nextChapter;
+  final void Function()? previousChapter;
+  final void Function()? verseSelectionCopy;
+  final Future<void> Function(int,{bool? isId})? scrollToIndex;
+  final List<int>? verseSelectionList;
   @override
   _BottomSheetView createState() => _BottomSheetView();
 }
@@ -28,10 +28,10 @@ abstract class _BottomSheetState extends State<_BottomSheet> with AutomaticKeepA
   final scaffoldParallel = GlobalKey<ScaffoldState>();
   final scaffoldAudio = GlobalKey<ScaffoldState>();
 
-  TabController tabController;
-  ScrollController scrollController;
+  late TabController tabController;
+  ScrollController? scrollController;
 
-  BuildContext contextDraggable;
+  late BuildContext contextDraggable;
 
   final double shrinkSize = 10.0;
   double get height => kBottomNavigationBarHeight-shrinkSize;
@@ -60,8 +60,8 @@ abstract class _BottomSheetState extends State<_BottomSheet> with AutomaticKeepA
     if(mounted) super.setState(fn);
   }
 
-  List<int> get verseSelectionList => widget.verseSelectionList;
-  bool get hasVerseSelection => verseSelectionList.length > 0;
+  List<int>? get verseSelectionList => widget.verseSelectionList;
+  bool get hasVerseSelection => verseSelectionList!.length > 0;
 
   double get minChildSize => (height/heightDevice);
   // NOTE: update when scroll notify
@@ -85,7 +85,7 @@ abstract class _BottomSheetState extends State<_BottomSheet> with AutomaticKeepA
   }
 
   void navigatorController(double childSize){
-    double _heightNotify = scrollController.master.bottom.heightNotify.value;
+    double _heightNotify = scrollController.master.bottom!.heightNotify.value;
     double _offset = (childSize-minChildSize)*10;
     double _delta = _offset.clamp(0.0, 1.0);
     double shrink = (1.0 - _delta).toDouble();
@@ -98,7 +98,7 @@ abstract class _BottomSheetState extends State<_BottomSheet> with AutomaticKeepA
 
     }
     if (_heightNotify > 0.0 || _heightNotify < 1.0) {
-      scrollController.master.bottom.heightNotify.value = shrink;
+      scrollController.master.bottom!.heightNotify.value = shrink;
     }
 
   }
@@ -178,7 +178,7 @@ class _BottomSheetView extends _BottomSheetState {
     );
   }
 
-  Widget sheetDecoration({Widget child}) {
+  Widget sheetDecoration({Widget? child}) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal:3),
       decoration: BoxDecoration(
@@ -199,7 +199,7 @@ class _BottomSheetView extends _BottomSheetState {
     );
   }
 
-  Widget sheetShape({Widget child}) {
+  Widget sheetShape({Widget? child}) {
     return Material(
       // shape: ShapedArrow(arrow:20, borderRadius: BorderRadius.vertical(top: Radius.elliptical(3,3)), padding: 0),
       shape: new RoundedRectangleBorder(
@@ -357,7 +357,7 @@ class _BottomSheetView extends _BottomSheetState {
                       borderRadius: BorderRadius.all(Radius.circular(20))
                     ),
                     child: Text(
-                      verseSelectionList.length.toString(),
+                      verseSelectionList!.length.toString(),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 13.0,
@@ -373,7 +373,7 @@ class _BottomSheetView extends _BottomSheetState {
     );
   }
 
-  Widget button({Key key,String message,Widget child, Function onPressed}) {
+  Widget button({Key? key,required String message,required Widget child, Function? onPressed}) {
     return Tooltip(
       key: key,
       message: message,
@@ -386,9 +386,9 @@ class _BottomSheetView extends _BottomSheetState {
         // color: isButtomSelected?Colors.red:null,
         // borderRadius: BorderRadius.all(Radius.circular(2)),
         // padding: EdgeInsets.all(20),
-        disabledColor: Colors.grey[100],
+        disabledColor: Colors.grey[100]!,
         child: child,
-        onPressed: onPressed,
+        onPressed: onPressed as void Function()?,
       ),
     );
   }

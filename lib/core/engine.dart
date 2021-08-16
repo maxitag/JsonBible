@@ -5,14 +5,14 @@ part of 'core.dart';
 // set collection (Collection e) => _dataCollection = e;
 
 Collection parseCollectionCompute(dynamic response) {
-  Map<String, dynamic> parsed = (response is String)?decodeJSON(response):response;
-  return Collection.fromJSON(parsed)..bible.sort(
-    (a, b) => a.order.compareTo(b.order)
+  Map<String, dynamic> parsed = (response is String)?decodeJSON(response)!:response;
+  return Collection.fromJSON(parsed)..bible!.sort(
+    (a, b) => a.order!.compareTo(b.order!)
   );
 }
 
 DefinitionBible parseBibleCompute(String response){
-  Map<String, dynamic> parsed = decodeJSON(response);
+  Map<String, dynamic> parsed = decodeJSON(response)!;
   return DefinitionBible.fromJSON(parsed);
 }
 
@@ -21,7 +21,7 @@ DefinitionBible parseBibleCompute(String response){
 
 Future<String> requestHTTP(String url) async {
   try {
-    http.Response response = await http.get(url);
+    http.Response response = await http.get(Uri.parse(url));
     // return await http.read(url);
     if (response.statusCode == 200){
       return response.body;
@@ -34,7 +34,7 @@ Future<String> requestHTTP(String url) async {
   }
 }
 
-Map<String, dynamic> decodeJSON(String response)  => json.decode(response);
+Map<String, dynamic>? decodeJSON(String response)  => json.decode(response);
 
 String encodeJSON(Map<String, dynamic> response) => json.encode(response);
 
@@ -66,7 +66,7 @@ Future<FileSystemEntity> docsDelete(String fileName) async => await documents(fi
 );
 
 /// NOTE: if exist return path basename,if not NULL
-Future<String> docsExists(String fileName) async => await documents(fileName).then(
+Future<String?> docsExists(String fileName) async => await documents(fileName).then(
   (File e) async => await e.exists()?basename(fileName):null
 );
 // Future<bool> docsExists(String fileName) async => await documents(fileName).then(

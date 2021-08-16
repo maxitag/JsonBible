@@ -32,7 +32,7 @@ class View extends _State with _Bar, _Suggest, _Result {
   Widget get _body {
     return VerseInheritedWidget(
       size: core.fontSize,
-      lang: core.collectionLanguagePrimary.name,
+      lang: core.collectionLanguagePrimary!.name,
       child:focusNode.hasFocus?suggest():result()
       // child:result()
     );

@@ -1,11 +1,11 @@
 part of 'main.dart';
 
 class PopOptionList extends StatefulWidget {
-  final RenderBox mainContext;
-  final void Function(bool) setFontSize;
+  final RenderBox? mainContext;
+  final void Function(bool)? setFontSize;
   PopOptionList(
     {
-      Key key,
+      Key? key,
       this.mainContext,
       this.setFontSize,
     }
@@ -18,9 +18,9 @@ class PopOptionList extends StatefulWidget {
 class _PopOptionListState extends State<PopOptionList> {
 
 
-  RenderBox get mainContext => widget.mainContext;
-  Size get targetSize => mainContext.size;
-  Offset get targetPosition => mainContext.localToGlobal(Offset.zero);
+  RenderBox? get mainContext => widget.mainContext;
+  Size get targetSize => mainContext!.size;
+  Offset get targetPosition => mainContext!.localToGlobal(Offset.zero);
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class _PopOptionListState extends State<PopOptionList> {
         child: Text('A',
           style: new TextStyle(fontSize: 14),
         ),
-        onPressed: ()=>widget.setFontSize(false)
+        onPressed: ()=>widget.setFontSize!(false)
       ),
       // new RichText(
       //   textAlign: TextAlign.center,
@@ -87,7 +87,7 @@ class _PopOptionListState extends State<PopOptionList> {
         child: Text('A',
           style: new TextStyle(fontSize: 25),
         ),
-        onPressed: ()=> widget.setFontSize(true)
+        onPressed: ()=> widget.setFontSize!(true)
       ),
     ];
   }

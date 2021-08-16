@@ -34,7 +34,7 @@ class _MainViewState extends State<MainView> {
             },
             childCount: items.length,
             findChildIndexCallback: (Key key) {
-              final ValueKey valueKey = key;
+              final ValueKey valueKey = key as ValueKey<dynamic>;
               final String data = valueKey.value;
               return items.indexOf(data);
             }
@@ -114,10 +114,10 @@ class _MainViewState extends State<MainView> {
 }
 
 class KeepAlive extends StatefulWidget {
-  const KeepAlive({Key key, this.data, this.test}) : super(key: key);
+  const KeepAlive({Key? key, this.data, this.test}) : super(key: key);
 
-  final String data;
-  final int test;
+  final String? data;
+  final int? test;
 
   @override
   _KeepAliveState createState() => _KeepAliveState();

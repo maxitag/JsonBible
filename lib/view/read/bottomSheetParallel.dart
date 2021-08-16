@@ -2,14 +2,14 @@ part of 'main.dart';
 
 class BottomSheetParallel extends StatefulWidget {
   BottomSheetParallel({
-    Key key,
+    Key? key,
     this.controller,
     this.verseSelectionList,
     this.scrollToIndex,
   }) : super(key: key);
-  final ScrollController controller;
-  final List<int> verseSelectionList;
-  final Future<void> Function(int,{bool isId}) scrollToIndex;
+  final ScrollController? controller;
+  final List<int>? verseSelectionList;
+  final Future<void> Function(int, {bool? isId})? scrollToIndex;
 
   @override
   BottomSheetParallelState createState() => BottomSheetParallelState();
@@ -19,7 +19,6 @@ class BottomSheetParallelState extends State<BottomSheetParallel> {
   // final scaffoldKey = GlobalKey<ScaffoldState>();
   final core = Core();
 
-
   // String parallelId = '';
 
   // BIBLE get primaryBible => core.primaryScripture.verseChapterData;
@@ -27,22 +26,18 @@ class BottomSheetParallelState extends State<BottomSheetParallel> {
   CollectionBible get parallelInfo => core.collectionParallel;
   // String get title => 'Parallel tmp';
   // String get title => primaryInfo.name +''+ primaryInfo.shortname;
-  String get widgetTitle => parallelInfo.shortname;
+  String? get widgetTitle => parallelInfo.shortname;
 
-  Future<BIBLE> _dataResult;
-  Future<BIBLE> get getResult => _dataResult=hasNotResult?_newResult:_dataResult;
+  Future<BIBLE>? _dataResult;
+  Future<BIBLE>? get getResult => _dataResult = hasNotResult ? _newResult : _dataResult;
   Future<BIBLE> get _newResult async => core.verseParallelChapter();
 
-  bool get hasNotResult => core.scriptureParallel.verseChapterDataIsEmpty(
-    id: core.parallelId,
-    testament: core.testamentId,
-    book: core.bookId,
-    chapter: core.chapterId
-  );
-  bool get isNotReady => hasNotResult && core.scriptureParallel.notReady();
+  bool get hasNotResult =>
+      core.scriptureParallel!.verseChapterDataIsEmpty(id: core.parallelId, testament: core.testamentId, book: core.bookId, chapter: core.chapterId);
+  bool get isNotReady => hasNotResult && core.scriptureParallel!.notReady();
   // Future<BIBLE> get getResult => core.verseParallelChapter();
 
-  BIBLE get bible => core.scriptureParallel.verseChapterData;
+  BIBLE? get bible => core.scriptureParallel!.verseChapterData;
   // bool get hasNotResult => core.verseChapterDataIsEmpty();
   // bool get isNotReady => hasNotResult && core.userBible == null && core.userBibleList.length == 0;
 
@@ -50,11 +45,11 @@ class BottomSheetParallelState extends State<BottomSheetParallel> {
   // CollectionBible get bibleInfo => core.getCollectionBible;
   // CollectionBible get tmpbible => bible?.info;
   // DefinitionBook get tmpbook => bible?.book?.first?.info;
-  CHAPTER get tmpchapter => bible?.book?.first?.chapter?.first;
-  List<VERSE> get tmpverse => tmpchapter?.verse;
+  CHAPTER? get tmpchapter => bible?.book?.first.chapter?.first;
+  List<VERSE>? get tmpverse => tmpchapter?.verse;
 
-  void verseScroll(int id) {
-    widget.scrollToIndex(id,isId:true);
+  verseScroll(int? id) {
+    widget.scrollToIndex!(id!, isId: true);
     // print('scroll to: $id');
   }
 
@@ -62,69 +57,55 @@ class BottomSheetParallelState extends State<BottomSheetParallel> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: NestedScrollView(
-        // controller: widget.controller,
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverOverlapAbsorber(
-              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-              sliver: SliverAppBar(
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                title: Text(widgetTitle),
-                actions: <Widget>[
-                  Tooltip(
-                    message: 'Select Parallel',
-                    child: CupertinoButton(
-                      onPressed: (){
-                        Navigator.of(context, rootNavigator: true).push(
-                          MaterialPageRoute(builder: (context) => new Home.Main(title: 'Parallel',))
-                        );
-                      },
-                      child:Icon(Icons.linear_scale),
-                    ),
-                  )
-                ]
-              )
-            ),
-          ];
-        },
-        body: Builder(
-          builder: (BuildContext context) {
-            return CustomScrollView(
-              physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-              slivers: <Widget>[
-                SliverOverlapInjector(
-                  handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context)
-                ),
-                _readChapter,
-              ]
-            );
-          }
-        )
-      ),
+          // controller: widget.controller,
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverOverlapAbsorber(
+                  handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                  sliver: SliverAppBar(backgroundColor: Colors.transparent, elevation: 0, title: Text(widgetTitle!), actions: <Widget>[
+                    Tooltip(
+                      message: 'Select Parallel',
+                      child: CupertinoButton(
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+                              builder: (context) => new Home.Main(
+                                    title: 'Parallel',
+                                  )));
+                        },
+                        child: Icon(Icons.linear_scale),
+                      ),
+                    )
+                  ])),
+            ];
+          },
+          body: Builder(builder: (BuildContext context) {
+            return CustomScrollView(physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()), slivers: <Widget>[
+              SliverOverlapInjector(handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context)),
+              _readChapter,
+            ]);
+          })),
     );
   }
 
   Widget get _readChapter {
     // NOTE: this method executed when identify is change
     return FutureBuilder<BIBLE>(
-      future: getResult,
-      builder: (BuildContext context, AsyncSnapshot<BIBLE> snapshot){
-        switch (snapshot.connectionState) {
-          case ConnectionState.waiting:
-            return WidgetMessage(message: 'A moment...');
-          case ConnectionState.active:
-            return WidgetMessage(message: 'Loading...');
-          case ConnectionState.none:
+        future: getResult,
+        builder: (BuildContext context, AsyncSnapshot<BIBLE> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return WidgetMessage(message: 'A moment...');
+            case ConnectionState.active:
+              return WidgetMessage(message: 'Loading...');
+            case ConnectionState.none:
             // return WidgetMessage(message: 'getting ready...');
-          case ConnectionState.done:
-          default:
-            // return _loadChapterBuilder(snapshot);
-            return _loadVerse();
-        }
-      }
-    );
+            case ConnectionState.done:
+            default:
+              // return _loadChapterBuilder(snapshot);
+              return _loadVerse();
+          }
+        });
   }
 
   // Widget get _loadChapter {
@@ -156,15 +137,15 @@ class BottomSheetParallelState extends State<BottomSheetParallel> {
   //   }
   // }
 
-  Widget _loadVerse(){
+  Widget _loadVerse() {
     // print(4);
     return SliverPadding(
-      padding: EdgeInsets.symmetric(vertical:10),
+      padding: EdgeInsets.symmetric(vertical: 10),
       sliver: SliverList(
         key: ValueKey<int>(34),
         delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int id) => _inheritedVerse(context, id, tmpverse[id]),
-          childCount: tmpverse.length,
+          (BuildContext context, int id) => _inheritedVerse(context, id, tmpverse![id]),
+          childCount: tmpverse!.length,
         ),
       ),
     );
@@ -190,16 +171,15 @@ class BottomSheetParallelState extends State<BottomSheetParallel> {
     // );
   }
 
-  Widget _inheritedVerse(BuildContext context, int index, VERSE verse){
+  Widget _inheritedVerse(BuildContext context, int index, VERSE verse) {
     return VerseInheritedWidget(
-      size: core.fontSize,
-      lang: core.collectionLanguageParallel.name,
-      // selected: verseSelectionList.indexWhere((id) => id == verse.id) >= 0,
-      child: WidgetVerse(
-        verse: verse,
-        selection: verseScroll,
-        // selection: verseSelection,
-      )
-    );
+        size: core.fontSize,
+        lang: core.collectionLanguageParallel!.name,
+        // selected: verseSelectionList.indexWhere((id) => id == verse.id) >= 0,
+        child: WidgetVerse(
+          verse: verse,
+          selection: verseScroll,
+          // selection: verseSelection,
+        ));
   }
 }

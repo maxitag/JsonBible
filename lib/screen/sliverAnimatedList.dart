@@ -15,14 +15,14 @@ class MainView extends StatefulWidget {
 class _SliverAnimatedListSampleState extends State<MainView> {
   final GlobalKey<SliverAnimatedListState> _listKey = GlobalKey<SliverAnimatedListState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  ListModel<int> _list;
-  int _selectedItem;
-  int _nextItem; // The next item inserted when the user presses the '+' button.
+  late ListModel<int?> _list;
+  int? _selectedItem;
+  int _nextItem = 0; // The next item inserted when the user presses the '+' button.
 
   @override
   void initState() {
     super.initState();
-    _list = ListModel<int>(
+    _list = ListModel<int?>(
       listKey: _listKey,
       initialItems: <int>[0, 1, 2],
       removedItemBuilder: _buildRemovedItem,
@@ -74,7 +74,7 @@ class _SliverAnimatedListSampleState extends State<MainView> {
         _selectedItem = null;
       });
     } else {
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
+      _scaffoldKey.currentState!.showSnackBar(SnackBar(
         content: Text(
           'Select an item to remove from the list.',
           style: TextStyle(fontSize: 20),
@@ -136,9 +136,9 @@ class _SliverAnimatedListSampleState extends State<MainView> {
 // of [AnimatedListState.insertItem] and [AnimatedList.removeItem].
 class ListModel<E> {
   ListModel({
-    @required this.listKey,
-    @required this.removedItemBuilder,
-    Iterable<E> initialItems,
+    required this.listKey,
+    required this.removedItemBuilder,
+    Iterable<E>? initialItems,
   })  : assert(listKey != null),
         assert(removedItemBuilder != null),
         _items = List<E>.from(initialItems ?? <E>[]);
@@ -147,17 +147,17 @@ class ListModel<E> {
   final dynamic removedItemBuilder;
   final List<E> _items;
 
-  SliverAnimatedListState get _animatedList => listKey.currentState;
+  SliverAnimatedListState? get _animatedList => listKey.currentState;
 
   void insert(int index, E item) {
     _items.insert(index, item);
-    _animatedList.insertItem(index);
+    _animatedList!.insertItem(index);
   }
 
   E removeAt(int index) {
     final E removedItem = _items.removeAt(index);
     if (removedItem != null) {
-      _animatedList.removeItem(
+      _animatedList!.removeItem(
         index,
         (BuildContext context, Animation<double> animation) =>
             removedItemBuilder(removedItem, context, animation),
@@ -181,9 +181,9 @@ class ListModel<E> {
 // transitions from 0.0 to 1.0.
 class CardItem extends StatelessWidget {
   const CardItem({
-    Key key,
-    @required this.animation,
-    @required this.item,
+    Key? key,
+    required this.animation,
+    required this.item,
     this.onTap,
     this.selected = false,
   })  : assert(animation != null),
@@ -192,8 +192,8 @@ class CardItem extends StatelessWidget {
         super(key: key);
 
   final Animation<double> animation;
-  final VoidCallback onTap;
-  final int item;
+  final VoidCallback? onTap;
+  final int? item;
   final bool selected;
 
   @override
@@ -215,7 +215,7 @@ class CardItem extends StatelessWidget {
             child: Card(
               color: selected
                   ? Colors.black12
-                  : Colors.primaries[item % Colors.primaries.length],
+                  : Colors.primaries[item! % Colors.primaries.length],
               child: Center(
                 child: Text(
                   'Item $item',

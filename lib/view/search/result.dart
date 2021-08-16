@@ -18,7 +18,7 @@ mixin _Result on _State {
         }
 
         if (snapshot.hasData) {
-          if (snapshot.data && bible.verseCount > 0) {
+          if (snapshot.data! && bible!.verseCount! > 0) {
             core.addKeyword(this.searchQuery.trim());
             return new SliverPadding(
               padding: EdgeInsets.symmetric(vertical:10),
@@ -58,7 +58,7 @@ mixin _Result on _State {
     return new SliverList(
       key: UniqueKey(),
       delegate: SliverChildBuilderDelegate((BuildContext context, int bookIndex) {
-          BOOK book = bible.book[bookIndex];
+          BOOK book = bible!.book![bookIndex];
           return new Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,8 +68,8 @@ mixin _Result on _State {
                 padding: EdgeInsets.all(10),
                 // color: Colors.red,
                 child: Text(
-                  book.info.name.toUpperCase(),
-                  semanticsLabel: 'book: '+book.info.name,
+                  book.info!.name!.toUpperCase(),
+                  semanticsLabel: 'book: '+book.info!.name!,
                   style:TextStyle(
                     fontSize: 22, //17
                     fontWeight: FontWeight.w400,
@@ -79,16 +79,16 @@ mixin _Result on _State {
                   )
                 ),
               ),
-              _resultChapter(book.chapter, book.info.id)
+              _resultChapter(book.chapter!, book.info!.id)
             ]
           );
         },
-        childCount: bible.book.length
+        childCount: bible!.book!.length
       )
     );
   }
 
-  Widget _resultChapter(List<CHAPTER> chapters, int bookId) {
+  Widget _resultChapter(List<CHAPTER> chapters, int? bookId) {
     final bool shrinkChapter = (chapters.length > 1 && shrinkResult);
     final int shrinkChapterTotal = shrinkChapter?1:chapters.length;
     return ListView.builder(
@@ -158,8 +158,8 @@ mixin _Result on _State {
                     child: FlatButton(
                       child: Text(
                         // core.digit(e.id),
-                        e.name,
-                        semanticsLabel: 'chapter: '+e.name,
+                        e.name!,
+                        semanticsLabel: 'chapter: '+e.name!,
                         style: TextStyle(
                           fontSize: 15
                         ),
@@ -186,7 +186,7 @@ mixin _Result on _State {
               padding: const EdgeInsets.all(8.0),
               child: RawMaterialButton(
                 child: Text(
-                  chapter.name,
+                  chapter.name!,
                   semanticsLabel: chapter.name,
                   style: TextStyle(
                     fontSize: 18
@@ -205,7 +205,7 @@ mixin _Result on _State {
               ),
             ),
 
-            _resultVerse(chapter.verse)
+            _resultVerse(chapter.verse!)
 
           ]
         );

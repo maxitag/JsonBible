@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 // SplashScreen Launcher
 class SplashScreen extends StatelessWidget {
-  final String message;
+  final String? message;
   SplashScreen({this.message});
 
   @override
@@ -93,7 +93,7 @@ class SplashScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(50),
               ),
               child: Text(
-                message,
+                message!,
                 semanticsLabel: message,
                 style: TextStyle(
                   color: Colors.white,

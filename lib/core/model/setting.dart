@@ -1,13 +1,13 @@
 part of 'collection.dart';
 
 class CollectionSetting {
-  String identify;
-  String parallel;
-  int bookId;
-  int chapterId;
-  int verseId;
+  String? identify;
+  String? parallel;
+  int? bookId;
+  int? chapterId;
+  int? verseId;
   double fontSize;
-  String searchQuery;
+  String? searchQuery;
 
   CollectionSetting({
     this.identify:'',
@@ -19,16 +19,16 @@ class CollectionSetting {
     this.searchQuery:'',
   });
 
-  factory CollectionSetting.fromJSON(Map<String, dynamic> o) {
+  factory CollectionSetting.fromJSON(Map<String, dynamic>? o) {
     if (o == null) {
       return CollectionSetting();
     }
     return CollectionSetting(
       identify: o['identify'],
-      parallel: o['parallel'] as String,
-      bookId: o['bookId'] as int,
-      chapterId: o['chapterId'] as int,
-      verseId: o['verseId'] as int,
+      parallel: o['parallel'] as String?,
+      bookId: o['bookId'] as int?,
+      chapterId: o['chapterId'] as int?,
+      verseId: o['verseId'] as int?,
       fontSize: o['fontSize'] as double,
       searchQuery: o['searchQuery']
     );

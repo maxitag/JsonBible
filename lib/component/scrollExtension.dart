@@ -27,7 +27,7 @@ abstract class ScrollPageController {
   double get percentageShrink => (1.0 - percentage).toDouble();
   // double get percentageStretch => ??;
 
-  void _scrollNotification(ScrollNotification notification) {
+  void _scrollNotification(ScrollNotification? notification) {
     // print('${notification}');
     // if (notification is ScrollUpdateNotification) {
     // }
@@ -74,8 +74,8 @@ abstract class ScrollPageController {
     if (pixels >= limit ){
       if (_delta > 0.0 ) {
         _offsetOld = pixels;
-        final _deltaBottom = scroll.extentAfter.clamp(0.0, height);
-        _delta = min(_delta,_deltaBottom);
+        final num _deltaBottom = scroll.extentAfter.clamp(0.0, height);
+        _delta = min(_delta,_deltaBottom as double);
       }
     } else {
       _delta = (_delta + pixels - _offsetOld).clamp(0.0, height);
@@ -178,15 +178,15 @@ abstract class ScrollPageController {
   }
 }
 
-extension ScrollControllerExtension on ScrollController {
+extension ScrollControllerExtension on ScrollController? {
   static final _master = ScrollController();
   // static final _bar = <int, _ScrollBarControllerExtends>{};
   static final _bottom = <int, _ScrollBottomControllerExtends>{};
 
-  static final _scrollNotification = ValueNotifier<ScrollNotification>(null);
-  ValueNotifier<ScrollNotification> get notification => _scrollNotification;
+  static final _scrollNotification = ValueNotifier<ScrollNotification?>(null);
+  ValueNotifier<ScrollNotification?> get notification => _scrollNotification;
 
-  void scrollNotification(Function(ScrollNotification) listener) {
+  void scrollNotification(Function(ScrollNotification?) listener) {
     _scrollNotification.addListener(() => listener(_scrollNotification.value));
   }
 
@@ -200,11 +200,11 @@ extension ScrollControllerExtension on ScrollController {
   //   return _bar[this.hashCode] = _ScrollBarControllerExtends(this);
   // }
 
-  _ScrollBottomControllerExtends get bottom {
+  _ScrollBottomControllerExtends? get bottom {
     if (_bottom.containsKey(this.hashCode)) {
       return _bottom[this.hashCode];
     }
-    return _bottom[this.hashCode] = _ScrollBottomControllerExtends(this);
+    return _bottom[this.hashCode] = _ScrollBottomControllerExtends(this!);
   }
 }
 

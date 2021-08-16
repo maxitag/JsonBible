@@ -70,7 +70,7 @@ class View extends _State {
               RaisedButton(
                 child: Text("more to bible"),
                 onPressed: () {
-                  controller.master.bottom.pageChange(1);
+                  controller.master.bottom!.pageChange(1);
                 },
               ),
               RaisedButton(
@@ -251,7 +251,7 @@ class View extends _State {
       return;
     }
     // scaffoldKey.currentState.
-    scaffoldKey.currentState.showBottomSheet(
+    scaffoldKey.currentState!.showBottomSheet(
       (BuildContext context) {
         return DraggableScrollableActuator(
           child: DraggableScrollableSheet(
@@ -336,8 +336,8 @@ class _TestSwitchState extends State<TestSwitch> {
 }
 
 class DragableSheetTest extends StatelessWidget {
-  final ScrollController scrollController;
-  final BuildContext parentContext;
+  final ScrollController? scrollController;
+  final BuildContext? parentContext;
   DragableSheetTest({this.parentContext,this.scrollController});
   @override
   Widget build(BuildContext context) {
@@ -399,7 +399,7 @@ class DragableSheetTest extends StatelessWidget {
 
 class DraggableScrollableSheetTest extends StatelessWidget {
 
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
   DraggableScrollableSheetTest({this.scrollController});
 
   @override

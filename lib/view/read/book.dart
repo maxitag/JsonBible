@@ -1,12 +1,12 @@
 part of 'main.dart';
 
 class PopBookList extends StatefulWidget {
-  final RenderBox mainContext;
+  final RenderBox? mainContext;
   // final void Function(int) setBook;
 
   PopBookList(
     {
-      Key key,
+      Key? key,
       this.mainContext,
     }
   ) : super(key: key);
@@ -17,8 +17,8 @@ class PopBookList extends StatefulWidget {
 
 class _PopBookListState extends State<PopBookList> {
 
-  Size get targetSize => widget.mainContext.size;
-  Offset get targetPosition => widget.mainContext.localToGlobal(Offset.zero);
+  Size get targetSize => widget.mainContext!.size;
+  Offset get targetPosition => widget.mainContext!.localToGlobal(Offset.zero);
 
   // getBookList
   // List<DefinitionBook> get getBookList => Core.instance.getBookList;
@@ -33,7 +33,7 @@ class _PopBookListState extends State<PopBookList> {
       height: MediaQuery.of(context).size.height,
       top: targetPosition.dy + targetSize.height + 7,
       arrow: targetPosition.dx + (targetSize.width/2)-15,
-      child: view(Core.instance.getDefinitionBookList),
+      child: view(Core.instance.getDefinitionBookList!),
     );
   }
   ListView view(List<DefinitionBook> book){
@@ -102,7 +102,7 @@ class _PopBookListState extends State<PopBookList> {
         //   )
         // ),
         child: Text(
-          book.name,
+          book.name!,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
           style: TextStyle(

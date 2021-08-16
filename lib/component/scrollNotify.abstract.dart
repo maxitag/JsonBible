@@ -75,8 +75,8 @@ abstract class ScrollNotify {
     _delta = (_delta + _pixel - _offsetOld).clamp(_offsetMin, bottomBarHeight);
     _offsetOld = _pixel;
     if (directionNotify.value == 1 || directionNotify.value == 0){
-      final _deltaBottom = (_atBottom - 1.0).clamp(_offsetMin, bottomBarHeight);
-      _delta = min(_delta,_deltaBottom);
+      final num _deltaBottom = (_atBottom - 1.0).clamp(_offsetMin, bottomBarHeight);
+      _delta = min(_delta,_deltaBottom as double);
     }
     bottomPositionNotify.value = _bottomPosition;
     bottomPercentageNotify.value = _bottomPercentage;
@@ -100,7 +100,7 @@ abstract class ScrollNotify {
     bottomPercentageNotify.value = _bottomPercentage;
   }
 
-  Widget scrollMain({Key key,Widget child}) {
+  Widget scrollMain({Key? key,required Widget child}) {
     return NotificationListener<ScrollNotification>(
       key:key,
       onNotification: _scrollNotification,
@@ -108,7 +108,7 @@ abstract class ScrollNotify {
     );
   }
 
-  ValueListenableBuilder<double> bottomPercentageListener({Widget Function(BuildContext, double, Widget) builder}){
+  ValueListenableBuilder<double> bottomPercentageListener({required Widget Function(BuildContext, double, Widget?) builder}){
     return ValueListenableBuilder<double>(
       valueListenable: bottomPercentageNotify,
       builder: builder,
@@ -122,7 +122,7 @@ abstract class ScrollNotify {
   //   );
   // }
 
-  ValueListenableBuilder<double> bottomPositionListener({Widget Function(BuildContext, double, Widget) builder, bool disable}){
+  ValueListenableBuilder<double> bottomPositionListener({required Widget Function(BuildContext, double, Widget?) builder, bool? disable}){
     return ValueListenableBuilder<double>(
       valueListenable: bottomPositionNotify,
       builder: builder,

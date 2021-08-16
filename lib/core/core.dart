@@ -17,6 +17,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 
 import 'package:bible/model.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 
 part 'configuration.dart';
 part 'scripture.dart';

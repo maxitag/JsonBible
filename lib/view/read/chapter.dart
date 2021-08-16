@@ -1,13 +1,13 @@
 part of 'main.dart';
 
 class PopChapterList extends StatefulWidget {
-  final RenderBox mainContext;
+  final RenderBox? mainContext;
   // final int chapterCount;
-  final BIBLE bible;
+  final BIBLE? bible;
 
   PopChapterList(
     {
-      Key key,
+      Key? key,
       this.mainContext,
       this.bible,
     }
@@ -19,16 +19,16 @@ class PopChapterList extends StatefulWidget {
 
 class _PopChapterListState extends State<PopChapterList> {
 
-  BIBLE get bible => widget.bible;
+  BIBLE? get bible => widget.bible;
   // DefinitionBook get book => bible.book.first.info;
-  BOOK get book => bible.book.first;
-  CHAPTER get chapter => book.chapter.first;
-  int get items => book.info.chapterCount;
-  int get perItem => items > 4?4:items;
-  double get height => (items < 4)?(250 / items).toDouble():(items/perItem).ceilToDouble()*62;
+  BOOK get book => bible!.book!.first;
+  CHAPTER get chapter => book.chapter!.first;
+  int? get items => book.info!.chapterCount;
+  int? get perItem => items! > 4?4:items;
+  double get height => (items! < 4)?(250 / items!).toDouble():(items!/perItem!).ceilToDouble()*62;
 
-  Size get targetSize => widget.mainContext.size;
-  Offset get targetPosition => widget.mainContext.localToGlobal(Offset.zero);
+  Size get targetSize => widget.mainContext!.size;
+  Offset get targetPosition => widget.mainContext!.localToGlobal(Offset.zero);
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +49,8 @@ class _PopChapterListState extends State<PopChapterList> {
       mainAxisSpacing:0,
       crossAxisSpacing:0,
       childAspectRatio: 1,
-      crossAxisCount: perItem,
-      children: new List<Widget>.generate(items, (index) {
+      crossAxisCount: perItem!,
+      children: new List<Widget>.generate(items!, (index) {
         ++index;
         bool isCurrentChapter = chapter.id == index;
         return InkWell(

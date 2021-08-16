@@ -1,17 +1,17 @@
 part of 'collection.dart';
 
 class DefinitionBible {
-  final CollectionBible info;
-  final Map note;
-  final Map language;
-  final List digit;
-  final Map testament;
-  final Map story;
-  final Map book;
+  final CollectionBible? info;
+  final Map? note;
+  final Map? language;
+  final List? digit;
+  final Map? testament;
+  final Map? story;
+  final Map? book;
 
   // NOTE: used only in view
-  List<DefinitionTestament> testamentInfo;
-  List<DefinitionBook> bookInfo;
+  List<DefinitionTestament>? testamentInfo;
+  List<DefinitionBook>? bookInfo;
 
   DefinitionBible({
     this.info,
@@ -30,7 +30,7 @@ class DefinitionBible {
       info: CollectionBible.fromJSON(o['info']),
       note: o['note'],
       language: o['language'],
-      digit: o['digit'] as List,
+      digit: o['digit'] as List?,
       testament: o['testament'],
       story: o['story'],
       book: o['book'],
@@ -41,7 +41,7 @@ class DefinitionBible {
 
   Map<String, dynamic> toJSON() {
     return {
-      'info': this.info.toJSON(),
+      'info': this.info!.toJSON(),
       'note': this.note,
       'language': this.language,
       'digit': this.digit,
@@ -54,9 +54,9 @@ class DefinitionBible {
 }
 
 class DefinitionTestament {
-  final int id;
-  final String name;
-  final String shortName;
+  final int? id;
+  final String? name;
+  final String? shortName;
 
   DefinitionTestament({
     this.id,
@@ -66,13 +66,13 @@ class DefinitionTestament {
 }
 
 class DefinitionBook {
-  final int testamentId;
+  final int? testamentId;
 
-  final int id;
-  final String name;
-  final String shortName;
+  final int? id;
+  final String? name;
+  final String? shortName;
 
-  final int chapterCount;
+  final int? chapterCount;
   DefinitionBook({
     this.testamentId,
     this.id,
@@ -83,11 +83,11 @@ class DefinitionBook {
 }
 
 class BIBLE {
-  final CollectionBible info;
-  final List<BOOK> book;
+  final CollectionBible? info;
+  final List<BOOK>? book;
 
   // NOTE: used in search result
-  final String query;
+  final String? query;
   int bookCount;
   int chapterCount;
   int verseCount;
@@ -96,17 +96,17 @@ class BIBLE {
     this.info,
     this.query,
     this.book,
-    this.bookCount,
-    this.chapterCount,
-    this.verseCount,
+    this.bookCount=0,
+    this.chapterCount=0,
+    this.verseCount=0,
   });
 }
 
 class BOOK {
   // int id;
   // String name;
-  final DefinitionBook info;
-  final List<CHAPTER> chapter;
+  final DefinitionBook? info;
+  final List<CHAPTER>? chapter;
   BOOK({
     // this.id,
     // this.name,
@@ -125,9 +125,9 @@ class BOOK {
 }
 
 class CHAPTER {
-  final int id;
-  final String name;
-  final List<VERSE> verse;
+  final int? id;
+  final String? name;
+  final List<VERSE>? verse;
   CHAPTER({
     this.id,
     this.name,
@@ -136,13 +136,13 @@ class CHAPTER {
 }
 
 class VERSE {
-  final GlobalKey key;
-  final int id;
-  final String name;
-  final String text;
-  final String title;
-  final String reference;
-  final String merge;
+  final GlobalKey? key;
+  final int? id;
+  final String? name;
+  final String? text;
+  final String? title;
+  final String? reference;
+  final String? merge;
   VERSE({
     this.key,
     this.id,

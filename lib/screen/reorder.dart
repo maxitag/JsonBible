@@ -1,12 +1,12 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
+import 'package:flutter_reorderable_list/flutter_reorderable_list.dart' as frl;
 import 'package:bible/component.dart';
-class MainView extends StatefulWidget {
-  MainView({Key key, this.title}) : super(key: key);
 
-  final String title;
+class MainView extends StatefulWidget {
+  MainView({Key? key, this.title}) : super(key: key);
+
+  final String? title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -28,9 +28,9 @@ enum DraggingMode {
 
 class _MyHomePageState extends State<MainView> {
   final controller = ScrollController();
-  List<ItemData> _items;
+  late List<ItemData> _items;
   _MyHomePageState() {
-    _items = List();
+    _items = [];
     for (int i = 0; i < 500; ++i) {
       String label = "List item $i";
       if (i == 5) {
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MainView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ReorderableList(
+      body: frl.ReorderableList(
         onReorder: this._reorderCallback,
         onReorderDone: this._reorderDone,
         child: CustomScrollView(
@@ -96,14 +96,9 @@ class _MyHomePageState extends State<MainView> {
                       _draggingMode = mode;
                     });
                   },
-                  itemBuilder: (BuildContext context) =>
-                      <PopupMenuItem<DraggingMode>>[
-                    const PopupMenuItem<DraggingMode>(
-                        value: DraggingMode.iOS,
-                        child: Text('iOS-like dragging')),
-                    const PopupMenuItem<DraggingMode>(
-                        value: DraggingMode.Android,
-                        child: Text('Android-like dragging')),
+                  itemBuilder: (BuildContext context) => <PopupMenuItem<DraggingMode>>[
+                    const PopupMenuItem<DraggingMode>(value: DraggingMode.iOS, child: Text('iOS-like dragging')),
+                    const PopupMenuItem<DraggingMode>(value: DraggingMode.Android, child: Text('Android-like dragging')),
                   ],
                 ),
               ],
@@ -115,8 +110,7 @@ class _MyHomePageState extends State<MainView> {
               ),
             ),
             SliverPadding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).padding.bottom),
+                padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
@@ -138,6 +132,7 @@ class _MyHomePageState extends State<MainView> {
       extendBody: true,
     );
   }
+
   // Widget bottomView() {
   //   return Container(
   //     height: controller.bottom.height,
@@ -148,7 +143,7 @@ class _MyHomePageState extends State<MainView> {
   Widget bottomView() {
     return ScrollPageBottom(
       controller: controller,
-      pageClick:(e){},
+      pageClick: (e) {},
       child: Text('??'),
     );
   }
@@ -162,26 +157,25 @@ class Item extends StatelessWidget {
     this.draggingMode,
   });
 
-  final ItemData data;
-  final bool isFirst;
-  final bool isLast;
-  final DraggingMode draggingMode;
+  final ItemData? data;
+  final bool? isFirst;
+  final bool? isLast;
+  final DraggingMode? draggingMode;
 
-  Widget _buildChild(BuildContext context, ReorderableItemState state) {
+  Widget _buildChild(BuildContext context, frl.ReorderableItemState state) {
     BoxDecoration decoration;
 
-    if (state == ReorderableItemState.dragProxy ||
-        state == ReorderableItemState.dragProxyFinished) {
+    if (state == frl.ReorderableItemState.dragProxy || state == frl.ReorderableItemState.dragProxyFinished) {
       // slightly transparent background white dragging (just like on iOS)
       decoration = BoxDecoration(color: Color(0xD0FFFFFF));
     } else {
-      bool placeholder = state == ReorderableItemState.placeholder;
+      bool placeholder = state == frl.ReorderableItemState.placeholder;
       decoration = BoxDecoration(
           border: Border(
-              top: isFirst && !placeholder
+              top: isFirst! && !placeholder
                   ? Divider.createBorderSide(context) //
                   : BorderSide.none,
-              bottom: isLast && placeholder
+              bottom: isLast! && placeholder
                   ? BorderSide.none //
                   : Divider.createBorderSide(context)),
           color: placeholder ? null : Colors.white);
@@ -190,7 +184,7 @@ class Item extends StatelessWidget {
     // For iOS dragging mode, there will be drag handle on the right that triggers
     // reordering; For android mode it will be just an empty container
     Widget dragHandle = draggingMode == DraggingMode.iOS
-        ? ReorderableListener(
+        ? frl.ReorderableListener(
             child: Container(
               padding: EdgeInsets.only(right: 18.0, left: 18.0),
               color: Color(0x08000000),
@@ -208,17 +202,15 @@ class Item extends StatelessWidget {
           bottom: false,
           child: Opacity(
             // hide content for placeholder
-            opacity: state == ReorderableItemState.placeholder ? 0.0 : 1.0,
+            opacity: state == frl.ReorderableItemState.placeholder ? 0.0 : 1.0,
             child: IntrinsicHeight(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Expanded(
                       child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0),
-                    child: Text(data.title,
-                        style: Theme.of(context).textTheme.subtitle1),
+                    padding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0),
+                    child: Text(data!.title, style: Theme.of(context).textTheme.subtitle1),
                   )),
                   // Triggers the reordering
                   dragHandle,
@@ -230,7 +222,7 @@ class Item extends StatelessWidget {
 
     // For android dragging mode, wrap the entire content in DelayedReorderableListener
     if (draggingMode == DraggingMode.Android) {
-      content = DelayedReorderableListener(
+      content = frl.DelayedReorderableListener(
         child: content,
       );
     }
@@ -240,8 +232,8 @@ class Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ReorderableItem(
-        key: data.key, //
+    return frl.ReorderableItem(
+        key: data!.key, //
         childBuilder: _buildChild);
   }
 }

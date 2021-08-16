@@ -13,7 +13,7 @@ class _SheetInfo extends StatefulWidget {
   _SheetInfo(
     this.bible,
     {
-      Key key,
+      Key? key,
     }
   ) : super(key: key);
   final CollectionBible bible;
@@ -29,7 +29,7 @@ class _SheetInfoState extends State<_SheetInfo> {
   final core = new Core();
 
   CollectionBible get bible => widget.bible;
-  bool get isAvailable => bible.available > 0;
+  bool get isAvailable => bible.available! > 0;
 
   void updateAvailableAction() {
     setState(() {
@@ -87,7 +87,7 @@ class _SheetInfoState extends State<_SheetInfo> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 20),
             child: Text(
-              bible.name,textAlign: TextAlign.end,
+              bible.name!,textAlign: TextAlign.end,
               semanticsLabel: bible.name,
               style: Theme.of(context).textTheme.headline5
             ),
@@ -99,7 +99,7 @@ class _SheetInfoState extends State<_SheetInfo> {
               style: Theme.of(context).textTheme.headline6,
               children: <TextSpan>[
                 TextSpan(text:'/'),
-                TextSpan(text:bible.language.name.toUpperCase()),
+                TextSpan(text:bible.language!.name!.toUpperCase()),
                 TextSpan(
                   text:' (${bible.identify})',
                 ),

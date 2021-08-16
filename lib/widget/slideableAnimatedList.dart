@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class SlideableAnimatedList extends StatefulWidget {
-  final Widget menu;
-  final VoidCallback onPress;
-  final List<Widget> right;
-  final Animation<double> animation;
+  final Widget? menu;
+  final VoidCallback? onPress;
+  final List<Widget>? right;
+  final Animation<double>? animation;
   // final AnimationController controller;
-  final VoidCallback builder;
+  final VoidCallback? builder;
 
   SlideableAnimatedList({
-    Key key,
+    Key? key,
     // this.controller,
     this.animation,
     this.menu,
@@ -25,9 +25,9 @@ class SlideableAnimatedList extends StatefulWidget {
 class _SlideableAnimatedListState extends State<SlideableAnimatedList> with SingleTickerProviderStateMixin {
 
   // AnimationController get controller => widget.controller;
-  AnimationController controller;
-  Animation<Offset>  animationOffset;
-  Animation<double> animationDouble;
+  late AnimationController controller;
+  late Animation<Offset>  animationOffset;
+  late Animation<double> animationDouble;
 
   @override
   initState() {
@@ -72,20 +72,20 @@ class _SlideableAnimatedListState extends State<SlideableAnimatedList> with Sing
     return new SizeTransition(
       key: widget.key,
       axis: Axis.vertical,
-      sizeFactor: widget.animation,
+      sizeFactor: widget.animation!,
       // sizeFactor: animationDouble,
       child: new GestureDetector(
         behavior: HitTestBehavior.opaque,
         // behavior: HitTestBehavior.translucent,
         onHorizontalDragUpdate: (data) {
           setState(() {
-            controller.value -= data.primaryDelta / context.size.width / 0.3;
+            controller.value -= data.primaryDelta! / context.size!.width / 0.3;
           });
         },
         onHorizontalDragEnd: (data) {
-          if (data.primaryVelocity > 2500)
+          if (data.primaryVelocity! > 2500)
             controller.animateTo(.0); //close menu on fast swipe in the right direction
-          else if (controller.value >= .3 || data.primaryVelocity < -500) // fully open if dragged a lot to left or on fast swipe to left
+          else if (controller.value >= .3 || data.primaryVelocity! < -500) // fully open if dragged a lot to left or on fast swipe to left
             controller.animateTo(1.0);
           else // close if none of above
             controller.animateTo(.0);

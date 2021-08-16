@@ -72,7 +72,7 @@ class View extends _State with _Bar, _Gesture {
       return WidgetMessage(message: snapshot.error.toString());
     }
     if (snapshot.hasData) {
-      if (snapshot.data) {
+      if (snapshot.data!) {
         return _loadVerse();
       } else {
         // NOTE: no Book is loaded for reading
@@ -111,9 +111,9 @@ class View extends _State with _Bar, _Gesture {
           shrinkWrap: true,
           primary: false,
           // controller: controller,
-          itemCount: tmpverse.length,
+          itemCount: tmpverse!.length,
           padding: EdgeInsets.symmetric(vertical: 7.0),
-          itemBuilder: (BuildContext context, int id) => _inheritedVerse(context, id, tmpverse[id]),
+          itemBuilder: (BuildContext context, int id) => _inheritedVerse(context, id, tmpverse![id]),
         )
       ),
     );
@@ -123,7 +123,7 @@ class View extends _State with _Bar, _Gesture {
     return VerseInheritedWidget(
       key: verse.key,
       size: core.fontSize,
-      lang: core.collectionLanguagePrimary.name,
+      lang: core.collectionLanguagePrimary!.name,
       selected: verseSelectionList.indexWhere((id) => id == verse.id) >= 0,
       child: WidgetVerse(
         verse: verse,

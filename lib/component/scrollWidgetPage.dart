@@ -1,15 +1,15 @@
 part of 'available.dart';
 
 class ScrollPage extends StatelessWidget {
-  final ScrollController controller;
+  final ScrollController? controller;
   final Widget child;
   final int depth;
 
   ScrollPage({
-    Key key,
+    Key? key,
     this.controller,
     this.depth:0,
-    @required this.child,
+    required this.child,
   }) :
   assert(child != null),
   super(key: key);
@@ -28,7 +28,7 @@ class ScrollPage extends StatelessWidget {
   bool _notification(ScrollNotification notification) {
     // print(notification.metrics.pixels);
     // if (controller.hasClients) {
-    if (controller != null && controller.hasClients && notification.depth == depth) controller.notification.value = notification;
+    if (controller != null && controller!.hasClients && notification.depth == depth) controller.notification.value = notification;
     return false;
   }
 }
@@ -39,8 +39,8 @@ class ScrollPageBehavior extends ScrollBehavior {
 }
 
 class ScrollMainDecoratedBox extends StatelessWidget {
-  final Widget child;
-  ScrollMainDecoratedBox({Key key,this.child}):super(key: key);
+  final Widget? child;
+  ScrollMainDecoratedBox({Key? key,this.child}):super(key: key);
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class WidgetContent extends StatelessWidget {
 
   WidgetContent({
-    Key key,
+    Key? key,
     this.startWith:'...',
     this.atLeast:'enable at least\na ',
     this.enable:'Bible',
@@ -17,7 +17,7 @@ class WidgetContent extends StatelessWidget {
   final String atLeast;
   final String enable;
   final String task;
-  final String message;
+  final String? message;
 
   String get label => '$startWith $atLeast $enable $task $message $endWith'.replaceAll("\n", " ").replaceAll("  ", " ");
 

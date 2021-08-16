@@ -8,7 +8,7 @@ import 'package:bible/component.dart';
 part 'view.dart';
 
 class Main extends StatefulWidget {
-  Main({Key key}) : super(key: key);
+  Main({Key? key}) : super(key: key);
   @override
   State<StatefulWidget> createState() => View();
 }
@@ -18,7 +18,7 @@ abstract class _State extends State<Main> with SingleTickerProviderStateMixin {
   final core = Core();
   final controller = ScrollController();
 
-  AnimationController animationController;
+  late AnimationController animationController;
 
   int testCounter = 0;
 

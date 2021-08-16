@@ -18,34 +18,34 @@ const List<String> rtlLanguages = <String>[
 // Fake locale to represent the system Locale option.
 const systemLocaleOption = Locale('system');
 
-Locale _deviceLocale;
-Locale get deviceLocale => _deviceLocale;
-set deviceLocale(Locale locale) => _deviceLocale ??= locale;
+Locale? _deviceLocale;
+Locale? get deviceLocale => _deviceLocale;
+set deviceLocale(Locale? locale) => _deviceLocale ??= locale;
 
 class ApplyThemeOption {
   const ApplyThemeOption({
     this.themeMode,
-    double textScaleFactor,
+    double? textScaleFactor,
     this.customTextDirection,
-    Locale locale,
+    Locale? locale,
     this.timeDilation,
     this.platform,
     this.isTesting,
   })  : _textScaleFactor = textScaleFactor,
         _locale = locale;
 
-  final ThemeMode themeMode;
-  final double _textScaleFactor;
-  final CustomTextDirection customTextDirection;
-  final Locale _locale;
-  final double timeDilation;
-  final TargetPlatform platform;
-  final bool isTesting; // True for integration tests.
+  final ThemeMode? themeMode;
+  final double? _textScaleFactor;
+  final CustomTextDirection? customTextDirection;
+  final Locale? _locale;
+  final double? timeDilation;
+  final TargetPlatform? platform;
+  final bool? isTesting; // True for integration tests.
 
   // We use a sentinel value to indicate the system text scale option. By
   // default, return the actual text scale factor, otherwise return the
   // sentinel value.
-  double textScaleFactor(BuildContext context, {bool useSentinel = false}) {
+  double? textScaleFactor(BuildContext context, {bool useSentinel = false}) {
     if (_textScaleFactor == systemTextScaleFactorOption) {
       return useSentinel
           ? systemTextScaleFactorOption
@@ -55,12 +55,12 @@ class ApplyThemeOption {
     }
   }
 
-  Locale get locale => _locale ?? deviceLocale;
+  Locale? get locale => _locale ?? deviceLocale;
 
   /// Returns a text direction based on the [CustomTextDirection] setting.
   /// If it is based on locale and the locale cannot be determined, returns
   /// null.
-  TextDirection resolvedTextDirection() {
+  TextDirection? resolvedTextDirection() {
     switch (customTextDirection) {
       case CustomTextDirection.localeBased:
         final language = locale?.languageCode?.toLowerCase();
@@ -88,7 +88,7 @@ class ApplyThemeOption {
         brightness = Brightness.dark;
         break;
       default:
-        brightness = WidgetsBinding.instance.window.platformBrightness;
+        brightness = WidgetsBinding.instance!.window.platformBrightness;
     }
 
     final overlayStyle = brightness == Brightness.dark
@@ -99,13 +99,13 @@ class ApplyThemeOption {
   }
 
   ApplyThemeOption copyWith({
-    ThemeMode themeMode,
-    double textScaleFactor,
-    CustomTextDirection customTextDirection,
-    Locale locale,
-    double timeDilation,
-    TargetPlatform platform,
-    bool isTesting,
+    ThemeMode? themeMode,
+    double? textScaleFactor,
+    CustomTextDirection? customTextDirection,
+    Locale? locale,
+    double? timeDilation,
+    TargetPlatform? platform,
+    bool? isTesting,
   }) {
     return ApplyThemeOption(
       themeMode: themeMode ?? this.themeMode,
@@ -140,26 +140,26 @@ class ApplyThemeOption {
         isTesting,
       );
 
-  static ApplyThemeOption of(BuildContext context) {
-    final scope = context.dependOnInheritedWidgetOfExactType<_ModelBindingScope>();
+  static ApplyThemeOption? of(BuildContext context) {
+    final scope = context.dependOnInheritedWidgetOfExactType<_ModelBindingScope>()!;
     return scope.modelBindingState.currentModel;
   }
 
   static void update(BuildContext context, ApplyThemeOption newModel) {
-    final scope = context.dependOnInheritedWidgetOfExactType<_ModelBindingScope>();
+    final scope = context.dependOnInheritedWidgetOfExactType<_ModelBindingScope>()!;
     scope.modelBindingState.updateModel(newModel);
   }
 }
 
 // Applies text ApplyThemeOption to a widget
 class ApplyTextOption extends StatelessWidget {
-  const ApplyTextOption({@required this.child});
+  const ApplyTextOption({required this.child});
 
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    final options = ApplyThemeOption.of(context);
+    final options = ApplyThemeOption.of(context)!;
     final textDirection = options.resolvedTextDirection();
     final textScaleFactor = options.textScaleFactor(context);
 

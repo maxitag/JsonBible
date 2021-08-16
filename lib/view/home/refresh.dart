@@ -7,10 +7,10 @@ mixin _Refresh on _State {
         refreshIndicatorExtent: 60,
         refreshTriggerPullDistance: 100,
         onRefresh: () {
-          final previousCount = collectionBibleList.length;
+          final previousCount = collectionBibleList!.length;
           return core.updateCollection().then((_){
-            for (int index = previousCount; index < collectionBibleList.length; index++)  {
-              sliverAnimatedListKey.currentState.insertItem(index);
+            for (int index = previousCount; index < collectionBibleList!.length; index++)  {
+              sliverAnimatedListKey.currentState!.insertItem(index);
             }
             core.analyticsShare('update', core.version);
           }).catchError((e){

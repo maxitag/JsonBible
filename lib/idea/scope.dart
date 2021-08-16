@@ -1,6 +1,6 @@
 // Route
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ReorderableList;
 import 'package:flutter/foundation.dart';
 
 // Option
@@ -19,22 +19,22 @@ part 'splash.dart';
 
 class ApplyModelBinding extends StatefulWidget {
   ApplyModelBinding({
-    Key key,
+    Key? key,
     this.initialModel = const ApplyThemeOption(),
     this.child,
   })  : assert(initialModel != null),
         super(key: key);
 
   final ApplyThemeOption initialModel;
-  final Widget child;
+  final Widget? child;
 
   @override
   _ModelBindingState createState() => _ModelBindingState();
 }
 
 class _ModelBindingState extends State<ApplyModelBinding> {
-  ApplyThemeOption currentModel;
-  Timer _timeDilationTimer;
+  ApplyThemeOption? currentModel;
+  Timer? _timeDilationTimer;
 
   @override
   void initState() {
@@ -50,18 +50,18 @@ class _ModelBindingState extends State<ApplyModelBinding> {
   }
 
   void handleTimeDilation(ApplyThemeOption newModel) {
-    if (currentModel.timeDilation != newModel.timeDilation) {
+    if (currentModel!.timeDilation != newModel.timeDilation) {
       _timeDilationTimer?.cancel();
       _timeDilationTimer = null;
-      if (newModel.timeDilation > 1) {
+      if (newModel.timeDilation! > 1) {
         // We delay the time dilation change long enough that the user can see
         // that UI has started reacting and then we slam on the brakes so that
         // they see that the time is in fact now dilated.
         _timeDilationTimer = Timer(const Duration(milliseconds: 150), () {
-          timeDilation = newModel.timeDilation;
+          timeDilation = newModel.timeDilation!;
         });
       } else {
-        timeDilation = newModel.timeDilation;
+        timeDilation = newModel.timeDilation!;
       }
     }
   }
@@ -79,16 +79,16 @@ class _ModelBindingState extends State<ApplyModelBinding> {
   Widget build(BuildContext context) {
     return _ModelBindingScope(
       modelBindingState: this,
-      child: widget.child,
+      child: widget.child!,
     );
   }
 }
 
 class _ModelBindingScope extends InheritedWidget {
   _ModelBindingScope({
-    Key key,
-    @required this.modelBindingState,
-    Widget child,
+    Key? key,
+    required this.modelBindingState,
+    required Widget child,
   })  : assert(modelBindingState != null),
         super(key: key, child: child);
 

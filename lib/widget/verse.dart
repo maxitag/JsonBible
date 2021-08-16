@@ -3,31 +3,31 @@ import 'package:bible/inherited.dart';
 import 'package:bible/model.dart';
 
 class WidgetVerse extends StatelessWidget {
-  final VERSE verse;
-  final String keyword;
-  final String alsoInVerse;
+  final VERSE? verse;
+  final String? keyword;
+  final String? alsoInVerse;
 
-  final Function(int) selection;
+  final Function(int?)? selection;
   // final ValueChanged<Map<String,dynamic>> onChange;
 
-  WidgetVerse({Key key, this.verse,this.keyword, this.selection, this.alsoInVerse}) : super(key: key);
+  WidgetVerse({Key? key, this.verse,this.keyword, this.selection, this.alsoInVerse}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
-    final userVerse = VerseInheritedWidget.of(context);
+    final userVerse = VerseInheritedWidget.of(context)!;
 
     return Column(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       // mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        if (verse.title.isNotEmpty) Container(
+        if (verse!.title!.isNotEmpty) Container(
           padding: EdgeInsets.symmetric(vertical:20, horizontal:20),
           child: Text(
-            verse.title.toUpperCase(),
+            verse!.title!.toUpperCase(),
             textAlign: TextAlign.center,
-            semanticsLabel: verse.title,
+            semanticsLabel: verse!.title,
             textDirection: TextDirection.ltr,
             style: TextStyle(
               color: Colors.black54,
@@ -64,8 +64,8 @@ class WidgetVerse extends StatelessWidget {
                   text: '\t',
                   children: <TextSpan>[
                     TextSpan(
-                      text: verse.name,
-                      semanticsLabel: 'verse: '+verse.name
+                      text: verse!.name,
+                      semanticsLabel: 'verse: '+verse!.name!
                     ),
                   ],
                   style: TextStyle(
@@ -79,13 +79,13 @@ class WidgetVerse extends StatelessWidget {
                 TextSpan(
                   text: '\t',
                   children: hightLight(
-                    verse.text,
+                    verse!.text,
                     keyword,
                     TextStyle(
                       color: Colors.red,
                     )
                   ),
-                  semanticsLabel: verse.text,
+                  semanticsLabel: verse!.text,
                   style: TextStyle(
                     color: userVerse.selected?Colors.red:null,
                     // color: userVerse.selected?Colors.black54:null,
@@ -102,8 +102,8 @@ class WidgetVerse extends StatelessWidget {
                     // decorationStyle: TextDecorationStyle.wavy
                   )
                 ),
-                if (alsoInVerse != null && alsoInVerse.isNotEmpty) TextSpan(
-                  text:'\t ...'+alsoInVerse,
+                if (alsoInVerse != null && alsoInVerse!.isNotEmpty) TextSpan(
+                  text:'\t ...'+alsoInVerse!,
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: userVerse.titleSize,
@@ -119,7 +119,7 @@ class WidgetVerse extends StatelessWidget {
               fontSize: userVerse.fontSize,
               height: userVerse.fontHeight
             ),
-            onTap: (selection is Function)?()=>selection(verse.id):null
+            onTap: (selection is Function)?()=>selection!(verse!.id):null
             // onTap: (selection is Function)?() => selection(verse.id):null
             // onTap: () {
             //   showMenu(
@@ -148,7 +148,7 @@ class WidgetVerse extends StatelessWidget {
     );
   }
 
-  List<TextSpan> hightLight(String text, String matchWord, TextStyle style) {
+  List<TextSpan> hightLight(String? text, String? matchWord, TextStyle style) {
     // final style = TextStyle(color: Colors.red, fontSize: 22);
     // children: hightLight(verse['text'], store.searchQuery, style),
     List<TextSpan> spans = [];
@@ -158,7 +158,7 @@ class WidgetVerse extends StatelessWidget {
       int spanBoundary = 0;
       do {
         // look for the next match
-        final startIndex = text.toLowerCase().indexOf(matchWord.toLowerCase(), spanBoundary);
+        final startIndex = text!.toLowerCase().indexOf(matchWord.toLowerCase(), spanBoundary);
         // final startIndex = text.toLowerCase().indexOf(matchWord, spanBoundary);
         // if no more matches then add the rest of the string without style
         if (startIndex == -1) {

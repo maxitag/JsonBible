@@ -27,7 +27,7 @@ part 'book.dart';
 part 'chapter.dart';
 
 class Main extends StatefulWidget {
-  Main({Key key}) : super(key: key);
+  Main({Key? key}) : super(key: key);
   @override
   View createState() => new View();
 }
@@ -44,21 +44,21 @@ abstract class _State extends State<Main> with TickerProviderStateMixin {
   final keyOptionButton = new GlobalKey();
   final keyListView = new GlobalKey();
 
-  List<int> verseSelectionList = new List();
+  List<int> verseSelectionList = [];
   bool hasBookmark = false;
-  String primaryId = '';
+  String? primaryId = '';
 
-  Future<bool> _dataResult;
-  Future<bool> get getResult => _dataResult=hasNotResult?_newResult:_dataResult;
-  Future<bool> get _newResult async => core.versePrimaryChapter().then((value) async{
-    hasBookmark = await core.hasBookmark();
-    if (primaryId != core.primaryId){
-      primaryId = core.primaryId;
-      core.analyticsBible();
-    }
-    setState(() {});
-    return hasNotResult == false;
-  });
+  Future<bool>? _dataResult;
+  Future<bool>? get getResult => _dataResult = hasNotResult ? _newResult : _dataResult;
+  Future<bool> get _newResult async => core.versePrimaryChapter().then((value) async {
+        hasBookmark = await core.hasBookmark();
+        if (primaryId != core.primaryId) {
+          primaryId = core.primaryId;
+          core.analyticsBible();
+        }
+        setState(() {});
+        return hasNotResult == false;
+      });
 
   // Future<BIBLE> get getResultParallel async => core.verseParallelChapter();
 
@@ -73,42 +73,34 @@ abstract class _State extends State<Main> with TickerProviderStateMixin {
   //   // return hasNotResult == false;
   // }
 
-  bool get hasNotResult => core.scripturePrimary.verseChapterDataIsEmpty(
-    id: core.primaryId,
-    testament: core.testamentId,
-    book: core.bookId,
-    chapter: core.chapterId
-  );
-  bool get isNotReady => hasNotResult && core.scripturePrimary.notReady();
+  bool get hasNotResult =>
+      core.scripturePrimary!.verseChapterDataIsEmpty(id: core.primaryId, testament: core.testamentId, book: core.bookId, chapter: core.chapterId);
+  bool get isNotReady => hasNotResult && core.scripturePrimary!.notReady();
 
-  BIBLE get bible => core.scripturePrimary.verseChapterData;
+  BIBLE? get bible => core.scripturePrimary!.verseChapterData;
   // bool get hasNotResult => core.verseChapterDataIsEmpty();
   // bool get isNotReady => hasNotResult && core.userBible == null && core.userBibleList.length == 0;
 
   // BIBLE get bible => core.verseChapterData;
   CollectionBible get bibleInfo => core.collectionPrimary;
   // CollectionBible get tmpbible => bible?.info;
-  DefinitionBook get tmpbook => bible?.book?.first?.info;
-  CHAPTER get tmpchapter => bible?.book?.first?.chapter?.first;
-  List<VERSE> get tmpverse => tmpchapter?.verse;
+  DefinitionBook? get tmpbook => bible?.book?.first.info;
+  CHAPTER? get tmpchapter => bible?.book?.first.chapter?.first;
+  List<VERSE>? get tmpverse => tmpchapter?.verse;
 
   void _localNameAndChapterRefresh() {
-    getResult.whenComplete(() {
+    getResult!.whenComplete(() {
       setState(() {});
       core.analyticsReading();
     });
-    controller.animateTo(
-      controller.position.minScrollExtent,
-      curve: Curves.easeOut,
-      duration: const Duration(milliseconds: 300)
-    );
+    controller.animateTo(controller.position.minScrollExtent, curve: Curves.easeOut, duration: const Duration(milliseconds: 300));
   }
 
   // int _tmpIndex = 0;
   void setChapterPrevious() {
-    core.chapterPrevious.then((_){
+    core.chapterPrevious.then((_) {
       _localNameAndChapterRefresh();
-    }).catchError((e){
+    }).catchError((e) {
       showSnack(e.toString());
     });
     // _tmpIndex--;
@@ -118,11 +110,11 @@ abstract class _State extends State<Main> with TickerProviderStateMixin {
   }
 
   void setChapterNext() {
-    core.chapterNext.then((_){
+    core.chapterNext.then((_) {
       _localNameAndChapterRefresh();
-    }).catchError((e){
-     showSnack(e.toString());
-     print(e);
+    }).catchError((e) {
+      showSnack(e.toString());
+      print(e);
     });
 
     // _tmpIndex++;
@@ -131,29 +123,29 @@ abstract class _State extends State<Main> with TickerProviderStateMixin {
     // controller.master.bottom.toggle(true);
   }
 
-  void setChapter(int id) {
+  void setChapter(int? id) {
     if (id == null) return;
     core.chapterId = id;
     _localNameAndChapterRefresh();
   }
 
-  void setBook(int id) {
+  void setBook(int? id) {
     if (id == null) return;
-    core.chapterBook(id).then((value){
+    core.chapterBook(id).then((value) {
       _localNameAndChapterRefresh();
-    }).catchError((e){
+    }).catchError((e) {
       showSnack(e.toString());
     });
   }
 
   // verseSelection verseSelectionList
-  void verseSelection(int id) {
+   verseSelection(int? id) {
     // print('selectVerse from it parent $id');
     int index = verseSelectionList.indexWhere((i) => i == id);
-    if (index >= 0){
+    if (index >= 0) {
       verseSelectionList.removeAt(index);
     } else {
-      verseSelectionList.add(id);
+      verseSelectionList.add(id!);
     }
     setState(() {});
   }
@@ -187,12 +179,14 @@ abstract class _State extends State<Main> with TickerProviderStateMixin {
 
   void verseSelectionCopy() {
     List<String> list = [];
-    String subject = tmpbook.name+' '+tmpchapter.name;
+    String subject = tmpbook!.name! + ' ' + tmpchapter!.name!;
     list.add(subject);
-    this.verseSelectionList..sort((a, b) => a.compareTo(b))..forEach((id) {
-      VERSE o = tmpverse.where((i)=> i.id == id).single;
-      list.add(o.name+': '+o.text);
-    });
+    this.verseSelectionList
+      ..sort((a, b) => a.compareTo(b))
+      ..forEach((id) {
+        VERSE o = tmpverse!.where((i) => i.id == id).single;
+        list.add(o.name! + ': ' + o.text!);
+      });
     // Clipboard.setData(new ClipboardData(text: list.join("\n"))).whenComplete((){
     //   showSnack('Copied to Clipboard');
     // });
@@ -201,7 +195,7 @@ abstract class _State extends State<Main> with TickerProviderStateMixin {
 
   void setFontSize(bool increase) {
     double tmp = core.fontSize;
-    if (increase){
+    if (increase) {
       tmp++;
     } else {
       tmp--;
@@ -211,7 +205,7 @@ abstract class _State extends State<Main> with TickerProviderStateMixin {
     });
   }
 
-  void setBookmark(){
+  void setBookmark() {
     if (isNotReady) return null;
     core.addBookmarkTest().then((value) {
       setState(() {
@@ -219,80 +213,79 @@ abstract class _State extends State<Main> with TickerProviderStateMixin {
       });
     });
   }
-  void showBookList(){
+
+  void showBookList() {
     if (isNotReady) return null;
-    Navigator.of(context).push(PageRouteBuilder<int>(
-      opaque: false,
-      barrierDismissible: true,
-      transitionsBuilder: (BuildContext _, Animation<double> x, Animation<double> y, Widget child) => new FadeTransition(opacity: x, child: child),
-      // barrierColor: Colors.white.withOpacity(0.3),
-      pageBuilder: (BuildContext context,x, y) => PopBookList(
-        mainContext: keyBookButton.currentContext.findRenderObject()
-      )
-    )).then((e){
+    Navigator.of(context)
+        .push(PageRouteBuilder<int>(
+            opaque: false,
+            barrierDismissible: true,
+            transitionsBuilder: (BuildContext _, Animation<double> x, Animation<double> y, Widget child) => new FadeTransition(opacity: x, child: child),
+            // barrierColor: Colors.white.withOpacity(0.3),
+            pageBuilder: (BuildContext context, x, y) => PopBookList(mainContext: keyBookButton.currentContext!.findRenderObject() as RenderBox?)))
+        .then((e) {
       setBook(e);
     });
   }
 
-  void showChapterList(){
+  void showChapterList() {
     if (isNotReady) return null;
-    Navigator.of(context).push(PageRouteBuilder<int>(
-      opaque: false,
-      barrierDismissible: true,
-      transitionsBuilder: (BuildContext _, Animation<double> x, Animation<double> y, Widget child) => new FadeTransition(opacity: x, child: child),
-      // barrierColor: Colors.white.withOpacity(0.3),
-      pageBuilder: (BuildContext context,x, y) => PopChapterList(
-        mainContext: keyChapterButton.currentContext.findRenderObject(),
-        bible: bible,
-      )
-    )).then((e){
+    Navigator.of(context)
+        .push(PageRouteBuilder<int>(
+            opaque: false,
+            barrierDismissible: true,
+            transitionsBuilder: (BuildContext _, Animation<double> x, Animation<double> y, Widget child) => new FadeTransition(opacity: x, child: child),
+            // barrierColor: Colors.white.withOpacity(0.3),
+            pageBuilder: (BuildContext context, x, y) => PopChapterList(
+                  mainContext: keyChapterButton.currentContext!.findRenderObject() as RenderBox?,
+                  bible: bible,
+                )))
+        .then((e) {
       setChapter(e);
     });
   }
 
-  void showOptionList(){
+  void showOptionList() {
     if (isNotReady) return null;
-    Navigator.of(context).push(PageRouteBuilder<int>(
-      opaque: false,
-      barrierDismissible: true,
-      transitionsBuilder: (BuildContext _, Animation<double> x, Animation<double> y, Widget child) => new FadeTransition(opacity: x, child: child),
-      pageBuilder: (BuildContext _,x, y) => PopOptionList(
-        mainContext: keyOptionButton.currentContext.findRenderObject(),
-        setFontSize: setFontSize,
-      )
-    )).whenComplete((){
+    Navigator.of(context)
+        .push(PageRouteBuilder<int>(
+            opaque: false,
+            barrierDismissible: true,
+            transitionsBuilder: (BuildContext _, Animation<double> x, Animation<double> y, Widget child) => new FadeTransition(opacity: x, child: child),
+            pageBuilder: (BuildContext _, x, y) => PopOptionList(
+                  mainContext: keyOptionButton.currentContext!.findRenderObject() as RenderBox?,
+                  setFontSize: setFontSize,
+                )))
+        .whenComplete(() {
       core.writeCollection();
     });
   }
 
-  void showSnack(String message){
-    Scaffold.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: Duration(milliseconds:500),
-        // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        // backgroundColor: Colors.grey,
-      )
-    );
+  void showSnack(String message) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text(message),
+      duration: Duration(milliseconds: 500),
+      // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      // backgroundColor: Colors.grey,
+    ));
   }
 
-
-  Future scrollToIndex(int id,{bool isId:false}) async {
+  Future<void> scrollToIndex(int id, {bool? isId}) async {
     double scrollTo = 40.0;
     if (id > 0) {
-      final offsetList = tmpverse.where(
-        // (e) => tmpverse.indexOf(e) < index
-        (e) => isId?e.id < id:tmpverse.indexOf(e) < id
-      ).map<double>((e) => e.key.currentContext?.size?.height);
-      if (offsetList.length > 0){
-        scrollTo = offsetList.reduce((a,b )=>a+b) + scrollTo;
+      final offsetList = tmpverse!.where(
+          // (e) => tmpverse.indexOf(e) < index
+          (e) => (isId ?? false) ? e.id! < id : tmpverse!.indexOf(e) < id).map<double?>((e) => e.key!.currentContext?.size?.height);
+      if (offsetList.length > 0) {
+        scrollTo = offsetList.reduce((a, b) => a! + b!)! + scrollTo;
       }
     }
     controller.animateTo(scrollTo, duration: new Duration(seconds: 1), curve: Curves.ease);
+    return;
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
   }
 
@@ -304,7 +297,6 @@ abstract class _State extends State<Main> with TickerProviderStateMixin {
 
   @override
   void setState(fn) {
-    if(mounted) super.setState(fn);
+    if (mounted) super.setState(fn);
   }
-
 }

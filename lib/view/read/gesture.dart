@@ -1,12 +1,12 @@
 part of 'main.dart';
 
 mixin _Gesture on _State {
-  double setChapterDrag;
-  double initialX;
-  double initialY;
-  double dragDistance;
+  late double setChapterDrag;
+  late double initialX;
+  double? initialY;
+  late double dragDistance;
 
-  Widget chapterGesture({Widget child}) {
+  Widget chapterGesture({Widget? child}) {
     return Stack(
       children: <Widget>[
         chapterGestureDetector(
@@ -16,7 +16,7 @@ mixin _Gesture on _State {
     );
   }
 
-  Widget chapterGestureDetector({Widget child}) {
+  Widget chapterGestureDetector({Widget? child}) {
     return GestureDetector(
       child: child,
       onHorizontalDragStart:(e){

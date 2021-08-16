@@ -1,38 +1,32 @@
 part of 'core.dart';
 
 mixin _Bookmark on _Bible {
-
   // bool get isBookmarkMounted => this.keyBookmarkList.currentState != null && this.keyBookmarkList.currentState.mounted;
   bool get isBookmarkMounted => this.keyBookmarkList.currentState != null;
 
-  Future<bool> addBookmarkTest() async => await readCollection().then(
-    (o) async{
-      int total = o.bookmark.length;
-      int index = o.bookmark.indexWhere((i)=>i.bookId == this.bookId && i.chapterId==this.chapterId);
-      bool hasNotBookmarked = index < 0;
-      if (hasNotBookmarked) {
-        if (isBookmarkMounted)this.keyBookmarkList.currentState.insertItem(total);
-        o.bookmark.add(CollectionBookmark(bookId:this.bookId,chapterId: this.chapterId));
-      } else {
-        o.bookmark.removeAt(index);
-        if (isBookmarkMounted)this.keyBookmarkList.currentState.removeItem(index, (_,__) => null);
-      }
-      await writeCollection();
-      return hasNotBookmarked;
-    }
-  );
+  Future<bool> addBookmarkTest() async => await readCollection().then((o) async {
+        int total = o!.bookmark!.length;
+        int index = o.bookmark!.indexWhere((i) => i.bookId == this.bookId && i.chapterId == this.chapterId);
+        bool hasNotBookmarked = index < 0;
+        if (hasNotBookmarked) {
+          if (isBookmarkMounted) this.keyBookmarkList.currentState!.insertItem(total);
+          o.bookmark!.add(CollectionBookmark(bookId: this.bookId, chapterId: this.chapterId));
+        } else {
+          o.bookmark!.removeAt(index);
+          if (isBookmarkMounted) this.keyBookmarkList.currentState!.removeItem(index, ((_, __) => null) as Widget Function(BuildContext, Animation<double>));
+        }
+        await writeCollection();
+        return hasNotBookmarked;
+      });
 
-  Future<bool> removeBookmark(int index) async => await readCollection().then(
-    (o) async{
-      if (index >= 0) o.bookmark.removeAt(index);
-      await writeCollection();
-      return true;
-    }
-  );
+  Future<bool> removeBookmark(int index) async => await readCollection().then((o) async {
+        if (index >= 0) o!.bookmark!.removeAt(index);
+        await writeCollection();
+        return true;
+      });
 
-  Future<bool> hasBookmark() async => await readCollection().then(
-    (o) => o.bookmark.firstWhere((i) => (i.bookId == bookId && i.chapterId==chapterId), orElse: ()=>null) != null
-  );
+  Future<bool> hasBookmark() async =>
+      await readCollection().then((o) => o!.bookmark!.firstWhereOrNull((i) => (i.bookId == bookId && i.chapterId == chapterId)) != null);
 
   // Future<List<CollectionBookmark>> bookmarkListView() async{
   //   // List<CollectionBookmark> bookmarkListView =

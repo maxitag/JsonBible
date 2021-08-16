@@ -46,7 +46,7 @@ mixin _Bar on _State {
                 child: Tooltip(
                   message: "Tap to select book",
                   child: CupertinoButton(
-                    color: (stretch<=0.5)?null:Colors.grey[400].withOpacity(stretch),
+                    color: (stretch<=0.5)?null:Colors.grey[400]!.withOpacity(stretch),
                     // minSize: 33,
                     minSize: (33*stretch).clamp(25.0, 33.0),
                     padding: EdgeInsets.symmetric(horizontal:15*stretch),
@@ -88,7 +88,7 @@ mixin _Bar on _State {
                 child: Tooltip(
                   message: "Tap to select chapter",
                   child: CupertinoButton(
-                    color: (stretch<=0.5)?null:Colors.grey[400].withOpacity(stretch),
+                    color: (stretch<=0.5)?null:Colors.grey[400]!.withOpacity(stretch),
                     minSize: (33*stretch).clamp(25.0, 33.0),
                     padding: EdgeInsets.symmetric(horizontal:15*stretch),
 

@@ -3,24 +3,24 @@ import 'dart:math';
 
 class FrogColor extends InheritedWidget {
   const FrogColor({
-    Key key,
+    Key? key,
     this.color,
     this.onChange,
     this.value,
-    Widget child,
+    required Widget child,
   }) :
     // assert(color != null),
     // assert(child != null),
     super(key: key, child: child);
 
-  final Color color;
-  final String value;
-  final ValueChanged<String> onChange;
+  final Color? color;
+  final String? value;
+  final ValueChanged<String>? onChange;
 
   // static FrogColor of(BuildContext context) {
   //   return context.inheritFromWidgetOfExactType(FrogColor);
   // }
-  static FrogColor of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<FrogColor>();
+  static FrogColor? of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<FrogColor>();
 
   @override
   bool updateShouldNotify(FrogColor old) => color != old.color;
@@ -29,12 +29,12 @@ class FrogColor extends InheritedWidget {
 
 class ValueNotifierInheritedModel extends InheritedNotifier<ValueNotifier<int>> {
   ValueNotifierInheritedModel({
-    Key key,
-    ValueNotifier<int> one,
-    Widget child,
+    Key? key,
+    ValueNotifier<int>? one,
+    required Widget child,
   }) : super(key: key, notifier: one,child: child);
 
-  static int of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<ValueNotifierInheritedModel>().notifier.value;
+  static int of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<ValueNotifierInheritedModel>()!.notifier!.value;
 }
 
 class MainView extends StatefulWidget {
@@ -43,7 +43,7 @@ class MainView extends StatefulWidget {
 
 class MainViewState extends State<MainView>{
 
-  String idField;
+  String? idField;
   final spinNotify = ValueNotifier<int>(0);
 
   void onMyFieldChange(String newValue) {
@@ -154,8 +154,8 @@ class A extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-         Text("a",style:TextStyle(color:FrogColor.of(context).color)),
-         Text(FrogColor.of(context).value??'None'),
+         Text("a",style:TextStyle(color:FrogColor.of(context)!.color)),
+         Text(FrogColor.of(context)!.value??'None'),
       ]
     );
   }
@@ -164,7 +164,7 @@ class B extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // print("${this.runtimeType.toString()}");
-    return  Text("B",style:TextStyle(color:FrogColor.of(context).color));
+    return  Text("B",style:TextStyle(color:FrogColor.of(context)!.color));
   }
 }
 class C extends StatelessWidget {
@@ -178,6 +178,6 @@ class D extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // print("${this.runtimeType.toString()}");
-    return  Text("D",style:TextStyle(color:FrogColor.of(context).color));
+    return  Text("D",style:TextStyle(color:FrogColor.of(context)!.color));
   }
 }
