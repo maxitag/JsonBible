@@ -1,8 +1,11 @@
 lib/**/*v[0-9].dart
 lib/**/*v[0-9].md
 assets/delete
-android/key.properties
+android/keystore.properties
+android/app/google-services.json
+android/app/floodcode.jks
 
+ios/Runner/GoogleService-Info.plist
 # Miscellaneous
 *.class
 *.log
